@@ -1,0 +1,184 @@
+@import url('style.css');
+
+
+.titulo-receita h1 {
+    font-family: var(--font-family-logo);
+    font-size: 50px;
+    font-weight: 400;
+    color: var(--color-pri);
+    text-align: center;
+    padding: 20px 0 0 0;
+}
+
+h3.categoria-receita {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-pri);
+    margin-bottom: 40px;
+}
+
+#conteudo-receita {
+    display: flex;
+    flex-direction: column;
+    width: 730px;
+    margin: 0 auto;
+}
+
+#conteudo-receita img {
+    width: 100%;
+    height: 265px;
+    object-fit: cover;
+    margin: 0 0 25px 0;
+}
+
+.modo-preparo li, .ingredientes li {
+    margin-left: 20px;
+    margin-bottom: 5px;
+    line-height: 1.5;
+}
+
+.ingredientes li {
+    list-style: disc;
+}
+
+.modo-preparo li {
+    list-style: decimal;
+}
+
+#conteudo-receita h1, #conteudo-receita h2 {
+    color: var(--cinza-escuro);
+    font-size: 24px;
+    font-weight: 400;
+    margin: 26px;
+    text-align: center;
+}
+
+#conteudo-receita h3 {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+
+/* Estilização da avaliação */
+
+/* TOPO */
+.avaliacao-clientes {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    align-items: start;
+}
+
+.estrelas-e-classificacao {
+    display: flex;
+    align-items: center;
+    /* Alinhar verticalmente */
+}
+
+.estrelas-clientes {
+    margin: 10px 10px 10px 0;
+}
+
+.estrelas-clientes .fa-star,
+.estrelas-clientes .fa-star-half-stroke {
+    color: gold;
+}
+
+.legenda-classificacao {
+    margin-bottom: 10px;
+}
+
+.categoria-receita p {
+    font-weight: bold;
+}
+
+.categoria-receita span {
+    font-weight: 400;
+}
+
+
+/* Avaliação star final da pg */
+.avaliacao {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.avaliar {
+    width: 314px;
+    height: 56px;
+    border-radius: 8px;
+    text-align: start;
+    padding-left: 20px;
+}
+
+.avaliacao h4 {
+    color: var(--cinza-escuro);
+    font-weight: 600;
+    text-align: center;
+    margin: 8px;
+}
+
+.avaliacao p {
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+}
+
+
+/* Estrelas */
+.estrelas {
+    display: flex;
+    justify-content: center;
+    font-size: 24px;
+    margin: 10px 0;
+    width: 250px;
+}
+
+/* Estrelas amarelas */
+.estrelas .fas.fa-star {
+    font-size: 24px;
+    margin: 10px 10px;
+}
+
+/* Legendas Ruim e Ótimo */
+.legendas {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 5px;
+    width: 250px;
+}
+
+/* Parágrafos Ruim e Ótimo */
+.legendas p {
+    margin: 0;
+}
+
+
+/* MOBILE */
+@media screen and (max-width: 992px) {
+    #conteudo-receita {
+        width: 80%;
+    }
+
+    .titulo-receita h1 {
+        font-size: 35px;
+    }
+
+    h3.categoria-receita {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #conteudo-receita {
+        width: 90%;
+    }
+}

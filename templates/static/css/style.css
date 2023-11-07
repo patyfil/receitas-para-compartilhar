@@ -1,0 +1,390 @@
+@import url('btn.css');
+
+:root {
+    --font-family-logo: 'Cherry Bomb One';
+
+    --color-pri: #8D0606;
+    --color-sec: #ce3217;
+    --color-ter: #F1984A;
+    --color-qua: #E5DFD3;
+    --color-qui: #FAF9F5;
+
+    --font-color-menu: #F1984A;
+    --font-color-menu-hover: #EA7C69;
+    --font-color-btn: #FFFFFF;
+
+    --btn-color: #8D0606;
+    --btn-color-hover: #ce3217;
+
+    --border: 1px solid #C4C4C4;
+    --border-sec: 1px solid #E5DFD3;
+    --border-test: 1px solid #64e680;
+
+    --cinza-escuro: #393C49;
+    --cinza-medio: #8C8888;
+    --cinza-claro: #C4C4C4;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    list-style: none;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #8C8888;
+    height: 100vh;
+    background: #ffffff;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 200ms linear;
+    color: var(--color-ter);
+    font-weight: bold;
+}
+
+a:hover {
+    color: var(--color-sec);
+}
+
+
+/* CABEÇALHO */
+
+header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 12px 36px 0 36px;
+}
+
+.logo img {
+    width: 260px;
+}
+
+.menu1 {
+    padding-bottom: 10px;
+}
+
+.menu1, .menu2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-self: center;
+    flex-direction: row;
+    width: 100%;
+}
+
+.logo, .meio, .lado-direito {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    align-self: center;
+    flex-direction: row;
+    width: 33.33%;
+}
+
+.menu2 ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    flex-direction: row;
+    align-items: center;
+    align-self: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.menu2 li {
+    padding: 0 25px;
+}
+
+.menu2 a {
+    font-weight: 500;
+}
+
+.menu2 a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 4px;
+    text-underline-offset: 12px;
+}
+
+.search-form {
+    display: flex;
+    justify-content: space-around;
+    width: 280px;
+    height: 50px;
+    padding: 14px;
+    border-radius: 8px;
+    border: 1px solid #C4C4C4;
+    transition: border 0.3s;
+}
+
+.search-form:focus-within {
+    border: 1px solid var(--color-ter);
+}
+
+button.search-button {
+    width: 10%;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.lupa {
+    font-size: 20px;
+    color: var(--color-ter);
+}
+
+.lupa:hover {
+    color: var(--btn-color-hover);
+}
+
+form input {
+    width: 90%;
+    border-radius: 8px;
+    border: none;
+    color: var(--color-pri);
+    font-size: 16px;
+}
+
+form input::placeholder {
+    color: var(--cinza-claro);
+}
+
+/* MAIN */
+
+main {
+    min-height: calc(100vh - 320.5px);
+    /* cabeçalho 151,5px + footer 129px + margem 40px 
+    [ 151,5 + 169 footer =  320,5 ] */
+}
+
+
+.titulo h1 {
+    font-family: var(--font-family-logo);
+    font-size: 50px;
+    font-weight: 400;
+    color: var(--color-pri);
+    text-align: center;
+    padding: 20px;
+}
+
+.titulo h2 {
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--cinza-medio);
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+/* FOOTER */
+footer {
+    display: flex;
+    width: 100%;
+    height: 129px;
+    /* wrap coloca a tag p para baixo */
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    align-self: center;
+    margin-top: 40px;
+    background: #E5DFD3;
+}
+
+.vazia, .logo-footer, .redes-sociais {
+    width: 33.33%;
+}
+
+.logo-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    flex-direction: column;
+}
+
+img.logo-img-footer {
+    height: 67px;
+    text-align: center;
+    margin: 10px 0;
+}
+
+img.redes-sociais {
+    align-items: center;
+    align-self: center;
+}
+
+.redes-sociais img {
+    width: 30px;
+}
+
+.redes-sociais {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    flex-direction: row;
+}
+
+.redes-sociais a {
+    padding: 30px 0 0 30px;
+}
+
+.copy {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+
+/* Estilos para a seção de pré-carregamento */
+/* Preloader */
+#preloader {
+    background-color: #ffffff;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 5000;
+}
+
+#preloader img {
+    width: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+#preloader .circle-preloader {
+    display: block;
+    width: 60px;
+    height: 60px;
+    border: 2px solid #ccc;
+    border-bottom-color: #8D0606;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    animation: spin 2s infinite linear;
+}
+
+@-webkit-keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+/* PAGINAÇÃO  */
+.pagination {
+    text-align: center;
+    /* Centraliza horizontalmente */
+    margin-top: 20px;
+    /* Espaçamento superior para centralizar verticalmente */
+}
+
+.pagination a {
+    margin: 0 10px;
+}
+
+.pagination .step-links {
+    display: inline-block;
+    margin: 0;
+}
+
+
+
+/* MOBILE */
+@media screen and (max-width: 992px) {
+
+    .menu1 {
+        display: block;
+    }
+
+    .menu2 li {
+        padding-bottom: 20px;
+    }
+
+    .logo, .meio, .lado-direito {
+        display: flex;
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    /* MAIN */
+    .titulo h1 {
+        font-size: 40px;
+        line-height: 28px;
+        padding: 0 0 20px 0;
+    }
+
+    .titulo h2 {
+        font-size: 20px;
+    }
+
+    /* footer */
+    footer {
+        height: 170px;
+        display: block;
+    }
+
+    footer p {
+        font-size: 14px;
+    }
+
+    .vazia, .logo-footer, .redes-sociais {
+        width: 100%;
+    }
+
+    .redes-sociais a {
+        padding: 0 15px 15px 15px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    /* MAIN */
+    .titulo h1 {
+        font-size: 30px;
+    }
+
+    .titulo h2 {
+        font-size: 16px;
+    }
+
+    /* FOOTER */
+    .redes-sociais img {
+        width: 20px;
+    }
+
+    p.copy {
+        margin: 0;
+    }
+
+    img.logo-img-footer {
+        margin: 15px 0;
+    }
+}

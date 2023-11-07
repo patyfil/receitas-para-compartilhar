@@ -1,0 +1,190 @@
+@import url('style.css');
+
+.body-login {
+    background: var(--color-qua);
+}
+
+#login {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    background: var(--color-qua);
+    padding: 10px;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+}
+
+.header h1 {
+    font-size: 40px;
+    line-height: 40px;
+    color: var(--color-ter);
+    font-family: var(--font-family-logo);
+    font-weight: 200;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.header h6 {
+    font-size: 15px;
+    color: var(--cinza-escuro);
+}
+
+.header img {
+    width: 80px;
+}
+
+form#form-login,
+form#form-cadastro {
+    width: 300px;
+    height: 300px;
+    background: #fff;
+    padding: 16px 30px;
+    border-radius: 16px;
+    box-shadow: 0 15px 25px -4px rgba(0, 0, 0, 0.5), inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2), 0 -10px 15px -1px rgba(255, 255, 255, 0.6), inset 0 3px 4px -1px rgba(255, 255, 255, 0.2), inset 0 0 5px 1px rgba(255, 255, 255, 0.8), inset 0 20px 30px 0 rgba(255, 255, 255, 0.2);
+    margin: 20px 0;
+    text-align: center;
+}
+
+form#form-cadastro {
+    height: 350px;
+}
+
+form h1 {
+    font-family: var(--font-family-logo);
+    font-size: 30px;
+    font-weight: 200;
+    color: var(--btn-color);
+    text-align: center;
+}
+
+form input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 40px;
+    padding: 16px;
+    border: none;
+    border-radius: 16px;
+    background-color: #ffffff;
+    box-shadow: 4px 4px 12px 0px rgba(206, 203, 187, 0.6) inset, -4px -4px 12px 0px rgba(255, 255, 253, 0.8) inset;
+    font-size: 14px;
+    color: var(--color-pri);
+    margin: 10px 0;
+}
+
+input:focus {
+    outline: 1px solid var(--btn-color);
+}
+
+input[type="password"] {
+    padding-right: 40px;
+}
+
+p.link {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.link a {
+    color: var(--cinza-medio);
+    text-decoration: none;
+    font-weight: 400;
+
+}
+
+.cadastro {
+    position: relative;
+}
+
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-top: -10px;
+}
+
+.eye-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+input[type="password"] {
+    padding-right: 40px;
+    width: 100%;
+    border: none;
+    border-radius: 16px;
+}
+
+
+@media screen and (max-width: 992px) {
+    .header h1 {
+        font-size: 35px;
+        line-height: 35px;
+    }
+
+    .header h6 {
+        font-size: 14px;
+    }
+
+    form h1 {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #login {
+        min-height: 95vh;
+        padding: 10px;
+    }
+
+    a.logo {
+        padding: 0;
+    }
+
+    .header h1 {
+        font-size: 35px;
+        line-height: 35px;
+        margin-bottom: 10px;
+    }
+
+    .header img {
+        width: 60px;
+    }
+
+    form h1 {
+        font-size: 25px;
+    }
+
+    form#form-login {
+        width: 280px;
+        height: auto;
+        padding: 14px 18px;
+        margin: 0 0 20px 0;
+    }
+
+    form#form-cadastro {
+    height: 330px;
+}
+
+    .btn-primary {
+        width: 100px;
+        height: auto;
+        padding: 10px;
+    }
+}

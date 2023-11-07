@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Receita{% endblock %}
+
+{% block content %}
+
+
+<main>
+    <div class="titulo-receita">
+        <h1>{{ receita.titulo }}</h1>
+        <h3 class="categoria-receita">Categoria:&nbsp; <span class="categoria"> {{ receita.categoria }}</span></h3>
+    </div>
+
+    <section id="conteudo-receita">
+        <div class="avaliacao-clientes">
+            <h4>Avaliação dos clientes</h4>
+            <div class="estrelas-e-classificacao">
+                <div class="estrelas-clientes">
+                    <i class="fa-solid fa-star" data-valor="1"></i>
+                    <i class="fa-solid fa-star" data-valor="2"></i>
+                    <i class="fa-solid fa-star" data-valor="3"></i>
+                    <i class="fa-solid fa-star-half-stroke" data-valor="4"></i>
+                    <i class="fa-regular fa-star" data-valor="5"></i>
+                </div>
+                <p>3.7 de 5</p>
+            </div>
+            <div class="legenda-classificacao">
+                <p>40 classificações globais</p>
+            </div>
+        </div>
+
+        <img src="{{ receita.imagem.url }}" alt="imagem da receita">
+        <h3>{{ receita.subtitulo }}</h3>
+
+        <div>
+            <h2>Ingredientes</h2>
+            <ul class="ingredientes">
+                {% for ingrediente in ingredientes %}
+                <p> {{ingrediente}} </p>
+
+                {% endfor %}
+            </ul>
+        </div>
+
+
+        <div>
+            <h2>Modo de preparo</h2>
+            <ol class="modo-preparo">
+                {% for preparo in modo_preparo %}
+                <p> {{preparo}} </p>
+
+                {% endfor %}
+            </ol>
+        </div>
+
+        <div class="avaliacao">
+            <h4>Avalie a receita</h4>
+            <div class="estrelas">
+                <i class="fas fa-star" data-valor="1"></i>
+                <i class="fas fa-star" data-valor="2"></i>
+                <i class="fas fa-star" data-valor="3"></i>
+                <i class="fas fa-star" data-valor="4"></i>
+                <i class="fas fa-star" data-valor="5"></i>
+            </div>
+            <div class="legendas">
+                <p>Ruim</p>
+                <p>Ótimo</p>
+            </div>
+            <a href="#" id="limpar-avaliacao">Limpar avaliação</a>
+        </div>
+
+        <div class="div-btn-receita-edicao">
+            <button class="btn-sec btn-receita-edicao">Editar</button>
+            <button class="btn-sec btn-receita-edicao">Excluir</button>
+        </div>
+    </section>
+</main>
+{% endblock %}

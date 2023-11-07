@@ -1,0 +1,136 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static './css/style.css' %}">
+    <link rel="stylesheet" href="{% static './css/login.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+
+    <link rel="shortcut icon" href="{% static './img/pinguim.png' %}" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap" rel="stylesheet">
+    <title>Entrar / Cadastrar</title>
+</head>
+
+<body class="body-login">
+    <!-- Preloader -->
+    <div id="preloader">
+        <i class="circle-preloader"></i>
+        <img src="{% static 'img/hamburguer.png' %}" alt="">
+    </div>
+
+    <section id="login">
+
+        {% if messages %}
+            <br>
+            {% for message in messages %}
+                <div class="alert {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="header">
+            <a href="{% url 'receitas:loginUser' %}" class="logo" rel="next" target="_self">
+                <img src="{% static 'img/pinguim.png' %}" alt="logo">
+            </a>
+            <h1>Receitas para <br> compartilhar</h1>
+            <div class="toogle">
+                <h6>
+                    <span>Entrar</span>
+                    <label class="switch">
+                        <input id="log" name="log" class="inpt" type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                    <span>Cadastrar</span>
+                </h6>
+            </div>
+        </div>
+
+        <div id="container">
+            <!-- Formulário de Login -->
+            <div class="login active" id="login-form">
+                <form action="{% url 'receitas:loginUser' %}" method="POST" id="form-login">
+                    {% csrf_token %}
+                    <h1>Entrar</h1>
+                    <input type="text" name="username" placeholder="Usuário" id="userInputEntrar" required="required" />
+                    <!-- id="emailInputEntrar" -->
+                    <div class="password-container">
+                        <input type="password" name="senha" class="senha" placeholder="Senha" required="required" />
+                        <i class="fa-regular fa-eye-slash eye-icon" aria-hidden="true"
+                            onclick="togglePasswordVisibility(this)"></i>
+                    </div>
+
+                    <button type="submit" class="btn-primary">
+                        <span class="transition"></span>
+                        <span class="gradient"></span>
+                        <span class="label">Entrar</span>
+                    </button>
+
+
+
+                    <p class="link"><a href="#">Esqueceu sua senha?</a></p>
+                </form>
+            </div>
+
+            <!-- Formulário de Cadastro -->
+            <div class="cadastro" id="cadastro-form">
+
+                <form action="{% url 'receitas:cadastroUser' %}" method="POST" id="form-cadastro">
+                    {% csrf_token %}
+
+                    <h1>Cadastro</h1>
+
+                    <input type="text" name="username" placeholder="Usuário" id="username" required="required" />
+
+                    <input type="email" name="email" placeholder="E-mail" id="emailInputCadastrar" />
+
+                    <div class="password-container">
+                        <input type="password" name="password" class="senha" placeholder="Senha"
+                            required="required" />
+                        <i class="fa-regular fa-eye-slash eye-icon" aria-hidden="true"
+                            onclick="togglePasswordVisibility(this)"></i>
+                    </div>
+
+                    <div class="password-container">
+                        <input type="password" name="confirmPassword" class="senha" placeholder="Confirmar Senha"
+                            required="required" />
+                        <i class="fa-regular fa-eye-slash eye-icon" aria-hidden="true"
+                            onclick="togglePasswordVisibility(this)"></i>
+                    </div>
+
+                    <button type="submit" class="btn-primary ">
+                        <span class="transition"></span>
+                        <span class="gradient"></span>
+                        <span class="label">Cadastrar</span>
+                    </button>
+
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/7ae77fe78b.js" crossorigin="anonymous"></script>
+
+    <!-- ##### Javascript Files ##### -->
+    <script src="{% static 'js/script.js' %}"></script>
+
+    <!-- jQuery-3.6.0 js / Preloader -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Preloader js -->
+    <script src="{% static 'js/preloader.js' %}"></script>
+
+    <!-- bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

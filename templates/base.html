@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static './css/style.css' %}" />
+    <link rel="stylesheet" href="{% static './css/cadastro.css' %}" />
+    <link rel="stylesheet" href="{% static './css/receita.css' %}" />
+    <link rel="stylesheet" href="{% static './css/card-receita.css' %}" />
+
+    <link rel="shortcut icon" href="{% static './img/pinguim.png' %}" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap" rel="stylesheet" />
+    <title>
+      {% block title %}
+      {% endblock %}
+    </title>
+  </head>
+  <body>
+    <!-- Preloader -->
+    <div id="preloader">
+      <i class="circle-preloader"></i>
+      <img src="{% static 'img/hamburguer.png' %}" alt="" />
+    </div>
+
+    {% include 'partials/_menu.html' %}
+    {% block content %}
+
+    {% endblock %}
+
+    {% if page_obj %}
+      <div class="pagination">
+        <span class="step-links">
+          {% if page_obj.has_previous %}
+            <a href="?page=1&q={{ request.GET.q.strip }}">&laquo; Primeiro</a>
+            <a href="?page={{ page_obj.previous_page_number }}&q={{ request.GET.q.strip }}">Anterior</a>
+          {% endif %}
+          <span class="current">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+
+          {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}&q={{ request.GET.q.strip }}">Próximo</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}&q={{ request.GET.q.strip }}">Último &raquo;</a>
+          {% endif %}
+        </span>
+      </div>
+    {% endif %}
+    {% include 'partials/_footer.html' %}
+    <!-- ##### All Javascript Files ##### -->
+    <script src="{% static 'js/script.js' %}"></script>
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/7ae77fe78b.js" crossorigin="anonymous"></script>
+    <!-- jQuery-3.6.0 js / Preloader -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Preloader js -->
+    <script src="{% static 'js/preloader.js' %}"></script>
+    <!-- Avaliação js -->
+    <script src="{% static 'js/star.js' %}"></script>
+    <!-- Upload da foto -->
+    <script src="{% static 'js/upload.js' %}"></script>
+    <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,19 @@
+{% load static %}
+<footer>
+    <div class="vazia"></div>
+    <div class="logo-footer">
+        <li><a href="{% url 'receitas:index' %}"><img class="logo-img-footer" src="{% static 'img/logo.png' %}" alt="logo"></a></li>
+    </div>
+    <div class="redes-sociais">
+        <a href="mailto:seuemail@example.com" target="_blank">
+            <img src="{% static 'img/email.svg' %}" alt="Ícone de E-mail">
+        </a>
+        <a href="https://api.whatsapp.com/send?phone=SEU_NUMERO_DE_TELEFONE" target="_blank">
+            <img src="{% static 'img/whatsapp.svg' %}" alt="Ícone do WhatsApp">
+        </a>
+        <a href="https://www.instagram.com/seu-usuario/" target="_blank">
+            <img src="{% static 'img/instagram.svg' %}" alt="Ícone do Instagram">
+        </a>
+    </div>
+    <p class="copy">Desenvolvido por Patrícia Mª de Souza</p>
+</footer>

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Receitas para compartilhar{% endblock %}
+
+{% block content %}
+{% if page_obj %}
+<main>
+  <div class="titulo">
+    <h1>As melhores receitas</h1>
+    <h2>Receitas para todos os gostos, desde pratos simples a criações sofisticadas</h2>
+  </div>
+
+  <section class="receitas">
+    {% for receita in page_obj %}
+
+    <div class="receita">
+      <img alt="{{ receita.titulo }}" class="receita__imagem" src="{{ receita.imagem.url }}" />
+      <div class="receita__conteudo">
+        <h4 class="receita__titulo">{{ receita.titulo }}</h4>
+        <p class="card__categoria">Categoria: {{ receita.categoria }}</p>
+
+        <div class="descricao-container">
+          <p class="receita__descricao">{{ receita.subtitulo }}</p>
+        </div>
+
+        <a href="{% url 'receitas:receita' receita.id %}">
+          <button type="submit" class="btn-sec">
+            <span class="label">Ver receita</span>
+          </button>
+        </a>
+      </div>
+      {% comment %} {% empty %}
+      <p>Nenhuma receita encontrada</p> {% endcomment %}
+    </div>
+    {% endfor %}
+
+  </section>
+</main>
+{% endif %}
+
+{% endblock %}

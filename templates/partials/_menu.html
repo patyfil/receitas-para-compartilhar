@@ -1,0 +1,74 @@
+{% load static %}
+<header>
+  <div class="menu1">
+    <div class="logo">
+      <li>
+        <a href="{% url 'receitas:index' %}"><img src="{% static 'img/logo.png' %}" alt="logo" /></a>
+      </li>
+    </div>
+    <div class="meio">
+      <div class="search">
+        <form action="{% url 'receitas:search' %}" method="GET" class="search-form" id="form">
+          <input type="search" name="q" id="search" class="search-input" placeholder="Procurar uma receita" />
+          <button type="submit" class="search-button"><i class="fa-solid fa-magnifying-glass lupa"></i></button>
+        </form>
+      </div>
+    </div>
+    
+    <div class="lado-direito">
+      {% if user.is_authenticated %}
+      <li><a href="{% url 'receitas:createReceita' %}">Cadastrar receita</a></li>
+      <li><a href="{% url 'receitas:index' %}">Olá, {{ user.username }}</a></li>
+
+      {% csrf_token %}
+      <li><a href="{% url 'receitas:logoutUser' %}">Sair</a></li>
+      {% else %}
+      {% csrf_token %}
+      <li><a href="{% url 'receitas:loginUser' %}">Entrar</a></li>
+      {% endif %}
+  </div>
+    {% comment %} <div class="lado-direito">
+      {% if user.is_authenticated %}
+      <li>
+        <a href="{% url 'receitas:createReceita' %}">Cadastrar receita</a>
+      </li>
+        <p>Olá, {{ user.first_name }}</p>
+        <form action="{% url 'receitas:logoutUser' %}">
+          {% csrf_token %}
+          <button type="submit">Sair</button>
+        </form>
+      {% else %}
+        <form action="{% url 'receitas:loginUser' %}">
+          {% csrf_token %}
+          <button type="submit">Entrar</button>
+        </form>
+      {% endif %}
+    </div> {% endcomment %}
+  </div>
+  <hr />
+  <div class="menu2">
+    <ul id="menu-list"></ul>
+  </div>
+  <script>
+    const menuItems = [
+      { text: 'Todas as receitas', query: '' },
+      { text: 'Sobremesas', query: 'Sobremesas' },
+      { text: 'Sopas', query: 'Sopas' },
+      { text: 'Grelhados', query: 'Grelhados' },
+      { text: 'Aperitivos', query: 'Aperitivos' },
+      { text: 'Massas', query: 'Massas' },
+      { text: 'Saladas', query: 'Saladas' }
+    ]
+    
+    const menuList = document.getElementById('menu-list')
+    
+    for (const item of menuItems) {
+      const li = document.createElement('li')
+      const a = document.createElement('a')
+      a.href = `/search/?q=${item.query}`
+      a.textContent = item.text
+      li.appendChild(a)
+      menuList.appendChild(li)
+    }
+  </script>
+</header>

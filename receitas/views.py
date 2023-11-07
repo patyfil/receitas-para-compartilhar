@@ -1,0 +1,262 @@
+from django.shortcuts import render, redirect, get_object_or_404
+from . import models
+from django.db.models import Q
+from django.core.paginator import Paginator
+
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+
+from django.contrib import messages
+from django.contrib.messages import constants, get_messages
+
+
+# Página inicial
+
+
+def index(request):
+    receitas = models.Receita.objects.all()
+    paginator = Paginator(receitas, 6)  # Número de receitas por página
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'page_obj': page_obj,
+    }
+    return render(request, 'receitas/index.html', context)
+
+
+# Visualização de uma receita específica
+
+
+def receita(request, receitaId):
+    receita_unica = get_object_or_404(models.Receita, id=receitaId)
+    ingredientes = textFormater(receitaId, tipo='ingredientes')
+    modo_preparo = textFormater(receitaId, tipo='modo_preparo')
+    context = {
+        'receita': receita_unica,
+        'ingredientes': ingredientes,
+        'modo_preparo': modo_preparo,
+    }
+    return render(request, 'receitas/receita.html', context)
+
+
+# Criação de uma nova receita
+
+
+@login_required
+def createReceita(request):
+    if request.method == 'POST':
+        titulo = request.POST.get('titulo')
+        subtitulo = request.POST.get('subtitulo')
+        ingredientes = request.POST.get('ingredientes')
+        modo_preparo = request.POST.get('modo_preparo')
+        imagem = request.FILES.get('imagem')
+        categoria_nome = request.POST.get('categoria')
+        if imagem:
+            categoria = models.Categoria.objects.get(nome=categoria_nome)
+
+            nova_receita = models.Receita(
+                titulo=titulo,
+                subtitulo=subtitulo,
+                ingredientes=ingredientes,
+                modo_preparo=modo_preparo,
+                imagem=imagem,
+                categoria=categoria
+            )
+
+            nova_receita.save()
+
+            # Redirecionar para a página inicial após a criação
+            return redirect('receitas:index')
+
+        else:
+            # Exibir o formulário de criação de receita vazio
+            categorias = models.Categoria.objects.all()  #
+            context = {
+                'categorias': categorias
+            }
+            return render(request, 'receitas/cadastro.html', context)
+    else:
+        messages.error(request, 'Erro ao criar a receita')
+        return render(request, 'receitas/cadastro.html')
+
+# Atualização de uma receita existente
+
+
+@login_required
+def updateReceita(request, receitaId):
+    receita = get_object_or_404(models.Receita, id=receitaId)
+    categorias = models.Categoria.objects.all()
+
+    if request.method == 'POST':
+        receita.titulo = request.POST.get('titulo')
+        receita.subtitulo = request.POST.get('subtitulo')
+        receita.ingredientes = request.POST.get('ingredientes')
+        receita.modo_preparo = request.POST.get('modo_preparo')
+        receita.imagem = request.FILES.get('imagem')
+        receita.categoria = models.Categoria.objects.get(
+            id=request.POST.get('categoria'))
+        receita.save()
+        return redirect('receitas:index')
+    else:
+        # Exibir o formulário de atualização de receita preenchido com os dados atuais
+        context = {
+            'receita': receita,
+            'categorias': categorias  # Passe as categorias para o contexto
+        }
+        return render(request, 'receitas/receita.html', context)
+
+
+# Exclusão de uma receita
+
+
+@login_required
+def deleteReceita(request, receitaId):
+    receita = get_object_or_404(models.Receita, id=receitaId)
+    if request.method == 'POST':
+        # Remover a receita do banco de dados
+        receita.delete()
+        messages.success(request, 'Receita excluída com sucesso.')
+        return redirect('receitas:index')
+    context = {
+        'receita': receita,
+    }
+    return render(request, 'receitas/excluir.html', context)
+
+# Pesquisa de receitas
+
+
+def search(request):
+    searchValue = request.GET.get('q', '').strip()
+    if searchValue == '':
+        return redirect('receitas:index')
+    receitas = models.Receita.objects.filter(
+        Q(titulo__icontains=searchValue) | Q(subtitulo__icontains=searchValue) | Q(
+            ingredientes__icontains=searchValue) | Q(categoria__nome__icontains=searchValue))
+    if receitas is None:
+        messages.error(request, 'Nenhuma receita encontrada')
+        return redirect('receitas:index')
+    paginator = Paginator(receitas, 5)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'page_obj': page_obj,
+        'searchValue': searchValue
+    }
+    return render(request, 'receitas/index.html', context)
+
+# Página de login
+
+
+def loginUser(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('senha')
+        user = authenticate(request, username=username, password=password)
+        print(user)
+        if user is not None:
+            login(request, user)
+            # messages.add_message(request, constants.SUCCESS, "Logado com sucesso")
+            return redirect('receitas:index')
+        else:
+            messages.add_message(request, constants.ERROR, 'Usuário ou senha inválidos')
+            return redirect('receitas:loginUser')
+    return render(request, 'receitas/login.html')
+
+# Página de logout
+
+
+@login_required
+def logoutUser(request):
+    if request.user.is_authenticated:
+        logout(request)
+
+        messages.add_message(request, constants.SUCCESS, 'Você saiu!')
+    return redirect('receitas:loginUser')
+
+# Página de cadastro de usuário
+
+# Função para criar um usuário
+def criar_usuario(username, email, password):
+    try:
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            password=password
+        )
+        user.save()
+        return user
+    except Exception as e:
+        print(f"Erro ao criar usuário: {str(e)}")
+
+        return None
+
+# Função para cadastrar um usuário
+def cadastroUser(request):
+    if request.method == 'GET':
+        return render(request, 'receitas/login.html')
+    elif request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        confirmPassword = request.POST.get('confirmPassword')
+
+        if not password == confirmPassword:
+            messages.add_message(request, constants.ERROR, "As senhas não são iguais")
+            return redirect('receitas:cadastroUser')
+
+        if User.objects.filter(username=username).exists():
+            messages.add_message(request, constants.ERROR, 'Nome de usuário já existe')
+            return redirect('receitas:cadastroUser')
+
+        user = criar_usuario(username, email, password)
+        if user is not None:
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                # messages.add_message(request, constants.SUCCESS, 'Conta criada e logada com sucesso')
+                return redirect('receitas:index')
+        else:
+            messages.add_message(request, constants.ERROR, 'Erro ao criar conta')
+            return redirect('receitas:cadastroUser')
+
+
+# def cadastroUser(request):
+#     if request.method == 'POST':
+#         first_name = request.POST.get('first_name')
+#         last_name = request.POST.get('last_name')
+#         email = request.POST.get('email')
+#         password = request.POST.get('password')
+#         confirmPassword = request.POST.get('confirmPassword')
+
+#         if password != confirmPassword:
+#             messages.error(request, 'As senhas não conferem')
+#             return redirect('receitas:cadastroUser')
+#         elif User.objects.filter(email=email).exists():
+#             messages.error(request, 'Email já existente')
+#             return redirect('receitas:cadastroUser')
+#         else:
+#             user = User.objects.create_user(
+#                 username=email, email=email, first_name=first_name, last_name=last_name, password=password)
+#             user.save()
+#             messages.success(request, 'Conta criada com sucesso')
+#             return redirect('receitas:loginUser')
+
+#     return render(request, 'receitas/login.html')
+
+
+# Formatação de texto
+
+
+def textFormater(id,tipo):
+    if tipo == 'ingredientes':
+        receita = models.Receita.objects.get(id=id)
+        ing = receita.ingredientes
+        lista = ing.split('\n')
+        return lista
+    elif tipo == 'modo_preparo':
+        ModoPreparo = models.Receita.objects.get(id=id)
+        modo = ModoPreparo.modo_preparo
+        lista = modo.split('\n')
+        return lista
+    
