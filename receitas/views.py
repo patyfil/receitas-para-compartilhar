@@ -16,7 +16,7 @@ from django.contrib.messages import constants, get_messages
 
 def index(request):
     receitas = models.Receita.objects.all()
-    paginator = Paginator(receitas, 6)  # Número de receitas por página
+    paginator = Paginator(receitas, 8)  # Número de receitas por página
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     context = {
@@ -46,15 +46,23 @@ def receita(request, receitaId):
 @login_required
 def createReceita(request):
     if request.method == 'POST':
+        # Obtenha os dados do formulário POST
         titulo = request.POST.get('titulo')
         subtitulo = request.POST.get('subtitulo')
         ingredientes = request.POST.get('ingredientes')
         modo_preparo = request.POST.get('modo_preparo')
         imagem = request.FILES.get('imagem')
         categoria_nome = request.POST.get('categoria')
-        if imagem:
-            categoria = models.Categoria.objects.get(nome=categoria_nome)
 
+        # Verifique se a categoria existe
+        try:
+            categoria = models.Categoria.objects.get(nome=categoria_nome)
+        except models.Categoria.DoesNotExist:
+            messages.error(request, 'A categoria especificada não existe.')
+            return redirect('receitas:cadastro')
+
+        if imagem:
+            # Crie uma nova instância de Receita e salve no banco de dados
             nova_receita = models.Receita(
                 titulo=titulo,
                 subtitulo=subtitulo,
@@ -63,22 +71,25 @@ def createReceita(request):
                 imagem=imagem,
                 categoria=categoria
             )
-
             nova_receita.save()
 
-            # Redirecionar para a página inicial após a criação
+            # Redirecione para a página inicial após a criação
+            messages.success(request, 'Receita criada com sucesso.')
             return redirect('receitas:index')
 
         else:
-            # Exibir o formulário de criação de receita vazio
-            categorias = models.Categoria.objects.all()  #
-            context = {
-                'categorias': categorias
-            }
-            return render(request, 'receitas/cadastro.html', context)
+            messages.error(request, 'Erro ao fazer o upload da imagem.')
     else:
-        messages.error(request, 'Erro ao criar a receita')
-        return render(request, 'receitas/cadastro.html')
+        # Exiba o formulário de criação de receita vazio
+        categorias = models.Categoria.objects.all()
+        context = {
+            'categorias': categorias
+        }
+        return render(request, 'receitas/cadastro.html', context)
+
+    # Caso ocorra um erro, retorne para o formulário de criação
+    return redirect('receitas:cadastro')
+
 
 # Atualização de uma receita existente
 
@@ -136,7 +147,7 @@ def search(request):
     if receitas is None:
         messages.error(request, 'Nenhuma receita encontrada')
         return redirect('receitas:index')
-    paginator = Paginator(receitas, 5)
+    paginator = Paginator(receitas, 8)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     context = {
