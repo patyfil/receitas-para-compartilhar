@@ -1,3 +1,4 @@
+# ARQUIVO PARA CADASTRAR CATEGORIAS E RECEITAS E INSERIR DADOS FICTÍCIOS NAS RECEITAS
 from django.core.files import File
 import os
 import django
