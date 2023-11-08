@@ -3,15 +3,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from . import models
 from django.db.models import Q
 from django.core.paginator import Paginator
-from django.urls import reverse
-
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 from django.contrib import messages
-from django.contrib.messages import constants, get_messages
+from django.contrib.messages import constants
 
 
 # Página inicial
@@ -111,7 +109,7 @@ def updateReceita(request, receitaId):
         # Verifique se o campo da imagem está presente no POST
         if 'imagem' in request.FILES:
             receita.imagem = request.FILES['imagem']
-            
+
         # Obter o nome da categoria selecionada no formulário
         categoria_id = request.POST.get('categoria')
 
@@ -132,34 +130,6 @@ def updateReceita(request, receitaId):
     }
     return render(request, 'receitas/editarReceita.html', context)
 
-# @login_required
-# def updateReceita(request, receitaId):
-#     receita = get_object_or_404(models.Receita, id=receitaId)
-#     categorias = models.Categoria.objects.all()
-
-#     if request.method == 'POST':
-#         receita.titulo = request.POST.get('titulo')
-#         receita.subtitulo = request.POST.get('subtitulo')
-#         receita.ingredientes = request.POST.get('ingredientes')
-#         receita.modo_preparo = request.POST.get('modo_preparo')
-#         receita.imagem = request.FILES.get('imagem')
-
-#         # Obter o nome da categoria selecionada na lista suspensa
-#         categoria_nome = request.POST.get('categoria')
-
-#         # Encontrar a categoria com o nome correspondente
-#         categoria = models.Categoria.objects.get(nome=categoria_nome)
-
-#         receita.categoria = categoria
-#         receita.save()
-#         return redirect('receitas:index')
-#     else:
-#         # Exibir o formulário de atualização de receita preenchido com os dados atuais
-#         context = {
-#             'receita': receita,
-#             'categorias': categorias  # Passe as categorias para o contexto
-#         }
-#         return render(request, 'receitas/editarReceita.html', context)
 
 # Exclusão de uma receita
 
@@ -172,11 +142,11 @@ def deleteReceita(request, receitaId):
     # Remova a receita do banco de dados
     receita.delete()
     messages.success(request, 'Receita excluída com sucesso.')
-    
+
     # Limpe as mensagens após a exibição
     messages.get_messages(request).used = True
-    
-    return redirect('receitas:index')
+
+    return redirect('receitas:loginUser')
 
 
 ...
