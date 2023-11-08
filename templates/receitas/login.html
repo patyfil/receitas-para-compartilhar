@@ -29,23 +29,15 @@
 
     <section id="login">
 
-        <!-- {% if messages %}
-            <br>
-            {% for message in messages %}
-                <div class="alert {{ message.tags }}">{{ message }}</div>
-            {% endfor %}
-        {% endif %} -->
 
-            <div class="my-message">
-                {% if messages %}
-                {% for message in messages %}
-                <div class="alert {{ message.tags }}">
-                    {{ message|safe }}
-                </div>
-                {% endfor %}
-                {{ messages.clear }}
-                {% endif %}
-            </div>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert {{ message.tags }}">
+            {{ message|safe }}
+        </div>
+        {% endfor %}
+        {{ messages.clear }}
+        {% endif %}
 
         <div class="header">
             <a href="{% url 'receitas:loginUser' %}" class="logo" rel="next" target="_self">

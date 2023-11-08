@@ -136,6 +136,10 @@ def deleteReceita(request, receitaId):
     # Remova a receita do banco de dados
     receita.delete()
     messages.success(request, 'Receita excluída com sucesso.')
+    
+    # Limpe as mensagens após a exibição
+    messages.get_messages(request).used = True
+    
     return redirect('receitas:index')
 
 
