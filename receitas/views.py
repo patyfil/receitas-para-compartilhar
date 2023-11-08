@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from . import models
 from django.db.models import Q
@@ -77,7 +77,8 @@ def createReceita(request):
             nova_receita.save()
 
             # Salve a mensagem de sucesso na sessão do usuário
-            messages.add_message(request, constants.SUCCESS, "Receita criada com sucesso.")
+            messages.add_message(request, constants.SUCCESS,
+                                 "Receita criada com sucesso.")
 
             # Redirecione para a página inicial após a criação
             return redirect('receitas:createReceita')
@@ -106,8 +107,14 @@ def updateReceita(request, receitaId):
         receita.ingredientes = request.POST.get('ingredientes')
         receita.modo_preparo = request.POST.get('modo_preparo')
         receita.imagem = request.FILES.get('imagem')
-        receita.categoria = models.Categoria.objects.get(
-            id=request.POST.get('categoria'))
+
+        # Obter o nome da categoria selecionada na lista suspensa
+        categoria_nome = request.POST.get('categoria')
+
+        # Encontrar a categoria com o nome correspondente
+        categoria = models.Categoria.objects.get(nome=categoria_nome)
+
+        receita.categoria = categoria
         receita.save()
         return redirect('receitas:index')
     else:
@@ -116,20 +123,22 @@ def updateReceita(request, receitaId):
             'receita': receita,
             'categorias': categorias  # Passe as categorias para o contexto
         }
-        return render(request, 'receitas/receita.html', context)
-
+        return render(request, 'receitas/editarReceita.html', context)
 
 # Exclusão de uma receita
+
 
 @login_required
 def deleteReceita(request, receitaId):
     receita = get_object_or_404(
-        models.Receita, id=receitaId)  
+        models.Receita, id=receitaId)
 
     # Remova a receita do banco de dados
     receita.delete()
     messages.success(request, 'Receita excluída com sucesso.')
     return redirect('receitas:index')
+
+
 ...
 
 
@@ -169,7 +178,8 @@ def loginUser(request):
             # messages.add_message(request, constants.SUCCESS, "Logado com sucesso")
             return redirect('receitas:index')
         else:
-            messages.add_message(request, constants.ERROR, 'Usuário ou senha inválidos')
+            messages.add_message(request, constants.ERROR,
+                                 'Usuário ou senha inválidos')
             return redirect('receitas:loginUser')
     return render(request, 'receitas/login.html')
 
@@ -187,6 +197,8 @@ def logoutUser(request):
 # Página de cadastro de usuário
 
 # Função para criar um usuário
+
+
 def criar_usuario(username, email, password):
     try:
         user = User.objects.create_user(
@@ -202,6 +214,8 @@ def criar_usuario(username, email, password):
         return None
 
 # Função para cadastrar um usuário
+
+
 def cadastroUser(request):
     if request.method == 'GET':
         return render(request, 'receitas/login.html')
@@ -212,11 +226,13 @@ def cadastroUser(request):
         confirmPassword = request.POST.get('confirmPassword')
 
         if not password == confirmPassword:
-            messages.add_message(request, constants.ERROR, "As senhas não são iguais")
+            messages.add_message(request, constants.ERROR,
+                                 "As senhas não são iguais")
             return redirect('receitas:cadastroUser')
 
         if User.objects.filter(username=username).exists():
-            messages.add_message(request, constants.ERROR, 'Nome de usuário já existe')
+            messages.add_message(request, constants.ERROR,
+                                 'Nome de usuário já existe')
             return redirect('receitas:cadastroUser')
 
         user = criar_usuario(username, email, password)
@@ -227,13 +243,14 @@ def cadastroUser(request):
                 # messages.add_message(request, constants.SUCCESS, 'Conta criada e logada com sucesso')
                 return redirect('receitas:index')
         else:
-            messages.add_message(request, constants.ERROR, 'Erro ao criar conta')
+            messages.add_message(request, constants.ERROR,
+                                 'Erro ao criar conta')
             return redirect('receitas:cadastroUser')
 
 # Formatação de texto
 
 
-def textFormater(id,tipo):
+def textFormater(id, tipo):
     if tipo == 'ingredientes':
         receita = models.Receita.objects.get(id=id)
         ing = receita.ingredientes
@@ -244,4 +261,3 @@ def textFormater(id,tipo):
         modo = ModoPreparo.modo_preparo
         lista = modo.split('\n')
         return lista
-    
