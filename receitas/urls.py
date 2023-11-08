@@ -11,6 +11,9 @@ urlpatterns = [
     path('login/', views.loginUser, name="loginUser"),
     # Logout
     path('logout/', views.logoutUser, name="logoutUser"),
+    
+    # Define a URL de redirecionamento após o login para a página inicial "index"
+    path('accounts/login/', views.index, name="index"),
 
     # User cadastro
     path('cadastroUser/', views.cadastroUser, name="cadastroUser"),
