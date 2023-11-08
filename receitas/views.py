@@ -108,23 +108,25 @@ def updateReceita(request, receitaId):
         receita.modo_preparo = request.POST.get('modo_preparo')
         receita.imagem = request.FILES.get('imagem')
 
-        # Obter o nome da categoria selecionada na lista suspensa
-        categoria_nome = request.POST.get('categoria')
+        # Obter o nome da categoria selecionada no formulário
+        categoria_id = request.POST.get('categoria')
 
-        # Encontrar a categoria com o nome correspondente
-        categoria = models.Categoria.objects.get(nome=categoria_nome)
+        try:
+            categoria = models.Categoria.objects.get(id=categoria_id)
+            receita.categoria = categoria
+            receita.save()
+            return redirect('receitas:index')
+        except models.Categoria.DoesNotExist:
+            # Categoria não encontrada, trate o erro aqui
+            # Você pode redirecionar o usuário de volta ao formulário com uma mensagem de erro
+            pass
 
-        receita.categoria = categoria
-        receita.save()
-        return redirect('receitas:index')
-    else:
-        # Exibir o formulário de atualização de receita preenchido com os dados atuais
-        context = {
-            'receita': receita,
-            'categorias': categorias  # Passe as categorias para o contexto
-        }
-        return render(request, 'receitas/editarReceita.html', context)
-
+    # Exibir o formulário de atualização de receita preenchido com os dados atuais
+    context = {
+        'receita': receita,
+        'categorias': categorias,
+    }
+    return render(request, 'receitas/editarReceita.html', context)
 
 # @login_required
 # def updateReceita(request, receitaId):

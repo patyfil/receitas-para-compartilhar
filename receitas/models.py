@@ -9,7 +9,8 @@ class Categoria(models.Model):
 
 
 class Receita(models.Model):
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
+    categoria = models.ForeignKey(
+        Categoria, on_delete=models.CASCADE, null=True, blank=True)
     imagem = models.ImageField(upload_to='receitas/')
     titulo = models.CharField(max_length=255)
     subtitulo = models.CharField(max_length=255)

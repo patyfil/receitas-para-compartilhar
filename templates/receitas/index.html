@@ -12,7 +12,12 @@
   <section class="receitas">
     {% for receita in page_obj %}
     <div class="receita">
-      <img alt="{{ receita.titulo }}" class="receita__imagem" src="{{ receita.imagem.url }}" />
+
+      {% if not receita.imagem %}
+      <img alt="{{ receita.titulo }}" class="receita__imagem" src="{% static 'img/not-found.png' %}">
+      {% else %}
+      <img alt="{{ receita.titulo }}" class="receita__imagem" src="{{ receita.imagem.url }}" width="100">
+      {% endif %}
       <div class="receita__conteudo">
         <h4 class="receita__titulo">{{ receita.titulo }}</h4>
         <p class="card__categoria">Categoria: {{ receita.categoria }}</p>

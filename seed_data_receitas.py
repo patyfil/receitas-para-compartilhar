@@ -2,26 +2,41 @@
 from django.core.files import File
 import os
 import django
+import shutil
+from config.settings import BASE_DIR
 
 # Defina a variável de ambiente DJANGO_SETTINGS_MODULE para o arquivo settings do seu projeto Django.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 # Inicialize o Django.
 django.setup()
 
-from PIL import Image
-def enviar_imagem(caminho_imagem):
-    with open(caminho_imagem, 'rb') as img_file:
-        imagem = File(img_file)        
+
+# Caminho para a pasta 'static/receitas'
+static_receitas_dir = os.path.join(BASE_DIR, 'templates/static/img/receitas')
+
+# Caminho para a pasta 'media/receitas'
+media_receitas_dir = os.path.join(BASE_DIR, "media/receitas/")
+
+# Lista de arquivos na pasta 'static/img/receitas'
+imagens_static = os.listdir(static_receitas_dir)
+
+# Limpando todas as receitas existentes
 from receitas.models import Receita, Categoria
+
+Receita.objects.all().delete()
+
+for imagem_static in imagens_static:
+    # Copia as imagens da pasta 'static/img/receitas' para 'media/receitas'
+    origem = os.path.join(static_receitas_dir, imagem_static)
+    destino = os.path.join(media_receitas_dir, imagem_static)
+    shutil.copy(origem, destino)
 
 
 def seed_data_receitas():
-    # Limpando todas as receitas existentes
-    Receita.objects.all().delete()
-
     # Categoria 'Grelhados'
     grelhados = Categoria.objects.get_or_create(nome='Grelhados')[0]
-
+    
+    
     Receita.objects.create(
         categoria=grelhados,
         imagem='receitas/frango-grelhado.jpg',
@@ -140,7 +155,7 @@ def seed_data_receitas():
 
     # Categoria 'Sobremesas'
     sobremesas = Categoria.objects.get_or_create(nome='Sobremesas')[0]
-    
+
     Receita.objects.create(
         categoria=sobremesas,
         imagem='receitas/pizza.jpg',
