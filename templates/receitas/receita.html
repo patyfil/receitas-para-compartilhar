@@ -70,8 +70,17 @@
         </div>
 
         <div class="div-btn-receita-edicao">
-            <button class="btn-sec btn-receita-edicao">Editar</button>
-            <button class="btn-sec btn-receita-edicao">Excluir</button>
+            <a href="{% url 'receitas:updateReceita' receita.id %}">
+                <button type="submit" class="btn-sec btn-receita-edicao">
+                    <span class="label">Editar</span>
+                </button>
+            </a>
+
+            <a href="{% url 'receitas:deleteReceita' receita.id %}">
+                <button type="submit" class="btn-sec btn-receita-edicao">
+                    <span class="label">Excluir</span>
+                </button>
+            </a>
         </div>
     </section>
 </main>

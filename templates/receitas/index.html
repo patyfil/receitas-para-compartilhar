@@ -3,7 +3,6 @@
 {% block title %}Receitas para compartilhar{% endblock %}
 
 {% block content %}
-{% if page_obj %}
 <main>
   <div class="titulo">
     <h1>As melhores receitas</h1>
@@ -12,7 +11,6 @@
 
   <section class="receitas">
     {% for receita in page_obj %}
-
     <div class="receita">
       <img alt="{{ receita.titulo }}" class="receita__imagem" src="{{ receita.imagem.url }}" />
       <div class="receita__conteudo">
@@ -29,13 +27,12 @@
           </button>
         </a>
       </div>
-      {% comment %} {% empty %}
-      <p>Nenhuma receita encontrada</p> {% endcomment %}
     </div>
     {% endfor %}
 
+    {% if page_obj|length == 0 %}
+    <p>Nenhuma receita encontrada</p>
+    {% endif %}
   </section>
 </main>
-{% endif %}
-
 {% endblock %}

@@ -13,13 +13,22 @@
         <h1>Cadastrar receita</h1>
     </div>
 
-    <div class="my-message">
-        {% for message in messages %}
+    <!-- {% for message in messages %}
         <div class="alert {{ message.tags }}">
             {{ message }}
         </div>
+        {% endfor %} -->
+    <div class="my-message">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert {{ message.tags }}">
+            {{ message|safe }}
+        </div>
         {% endfor %}
+        {{ messages.clear }}
+        {% endif %}
     </div>
+
 
     <form class="form-cadastro" action="{% url 'receitas:createReceita' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}

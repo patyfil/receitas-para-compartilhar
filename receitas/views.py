@@ -1,7 +1,10 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from . import models
 from django.db.models import Q
 from django.core.paginator import Paginator
+from django.urls import reverse
+
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -74,10 +77,7 @@ def createReceita(request):
             nova_receita.save()
 
             # Salve a mensagem de sucesso na sessão do usuário
-            messages.success(request, 'Receita criada com sucesso.')
-
-            # messages.add_message(request, constants.SUCCESS, "Receita criada com sucesso.")
-
+            messages.add_message(request, constants.SUCCESS, "Receita criada com sucesso.")
 
             # Redirecione para a página inicial após a criação
             return redirect('receitas:createReceita')
@@ -121,19 +121,17 @@ def updateReceita(request, receitaId):
 
 # Exclusão de uma receita
 
-
 @login_required
 def deleteReceita(request, receitaId):
-    receita = get_object_or_404(models.Receita, id=receitaId)
-    if request.method == 'POST':
-        # Remover a receita do banco de dados
-        receita.delete()
-        messages.success(request, 'Receita excluída com sucesso.')
-        return redirect('receitas:index')
-    context = {
-        'receita': receita,
-    }
-    return render(request, 'receitas/excluir.html', context)
+    receita = get_object_or_404(
+        models.Receita, id=receitaId)  
+
+    # Remova a receita do banco de dados
+    receita.delete()
+    messages.success(request, 'Receita excluída com sucesso.')
+    return redirect('receitas:index')
+...
+
 
 # Pesquisa de receitas
 
@@ -231,31 +229,6 @@ def cadastroUser(request):
         else:
             messages.add_message(request, constants.ERROR, 'Erro ao criar conta')
             return redirect('receitas:cadastroUser')
-
-
-# def cadastroUser(request):
-#     if request.method == 'POST':
-#         first_name = request.POST.get('first_name')
-#         last_name = request.POST.get('last_name')
-#         email = request.POST.get('email')
-#         password = request.POST.get('password')
-#         confirmPassword = request.POST.get('confirmPassword')
-
-#         if password != confirmPassword:
-#             messages.error(request, 'As senhas não conferem')
-#             return redirect('receitas:cadastroUser')
-#         elif User.objects.filter(email=email).exists():
-#             messages.error(request, 'Email já existente')
-#             return redirect('receitas:cadastroUser')
-#         else:
-#             user = User.objects.create_user(
-#                 username=email, email=email, first_name=first_name, last_name=last_name, password=password)
-#             user.save()
-#             messages.success(request, 'Conta criada com sucesso')
-#             return redirect('receitas:loginUser')
-
-#     return render(request, 'receitas/login.html')
-
 
 # Formatação de texto
 
