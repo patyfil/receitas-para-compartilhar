@@ -106,8 +106,12 @@ def updateReceita(request, receitaId):
         receita.subtitulo = request.POST.get('subtitulo')
         receita.ingredientes = request.POST.get('ingredientes')
         receita.modo_preparo = request.POST.get('modo_preparo')
-        receita.imagem = request.FILES.get('imagem')
+        # receita.imagem = request.FILES.get('imagem')
 
+        # Verifique se o campo da imagem está presente no POST
+        if 'imagem' in request.FILES:
+            receita.imagem = request.FILES['imagem']
+            
         # Obter o nome da categoria selecionada no formulário
         categoria_id = request.POST.get('categoria')
 
