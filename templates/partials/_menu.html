@@ -1,4 +1,5 @@
 {% load static %}
+
 <header>
   <div class="menu1">
     <div class="logo">
@@ -14,36 +15,20 @@
         </form>
       </div>
     </div>
-    
+
     <div class="lado-direito">
       {% if user.is_authenticated %}
-      <li><a href="{% url 'receitas:createReceita' %}">Cadastrar receita</a></li>
-      <li><a href="{% url 'receitas:index' %}">Olá, {{ user.username }}</a></li>
+      <li><a class="links_menu" href="{% url 'receitas:createReceita' %}">Cadastrar receita</a></li>
+      <li><a class="links_menu" href="{% url 'receitas:index' %}">Olá, {{ user.username }}</a></li>
 
       {% csrf_token %}
-      <li><a href="{% url 'receitas:logoutUser' %}">Sair</a></li>
+      <li><a class="links_menu" href="{% url 'receitas:logoutUser' %}">Sair</a></li>
       {% else %}
       {% csrf_token %}
-      <li><a href="{% url 'receitas:loginUser' %}">Entrar</a></li>
+      <li><a class="links_menu" href="{% url 'receitas:loginUser' %}">Entrar</a></li>
       {% endif %}
-  </div>
-    {% comment %} <div class="lado-direito">
-      {% if user.is_authenticated %}
-      <li>
-        <a href="{% url 'receitas:createReceita' %}">Cadastrar receita</a>
-      </li>
-        <p>Olá, {{ user.first_name }}</p>
-        <form action="{% url 'receitas:logoutUser' %}">
-          {% csrf_token %}
-          <button type="submit">Sair</button>
-        </form>
-      {% else %}
-        <form action="{% url 'receitas:loginUser' %}">
-          {% csrf_token %}
-          <button type="submit">Entrar</button>
-        </form>
-      {% endif %}
-    </div> {% endcomment %}
+    </div>
+
   </div>
   <hr />
   <div class="menu2">
@@ -59,16 +44,18 @@
       { text: 'Massas', query: 'Massas' },
       { text: 'Saladas', query: 'Saladas' }
     ]
-    
+
     const menuList = document.getElementById('menu-list')
-    
+
     for (const item of menuItems) {
-      const li = document.createElement('li')
-      const a = document.createElement('a')
-      a.href = `/search/?q=${item.query}`
-      a.textContent = item.text
-      li.appendChild(a)
-      menuList.appendChild(li)
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = `/search/?q=${item.query}`;
+      a.textContent = item.text;
+      a.classList.add('links_menu'); // Adiciona a classe 'links_menu' ao elemento <a>
+      li.appendChild(a);
+      menuList.appendChild(li);
     }
+
   </script>
 </header>

@@ -73,23 +73,24 @@ def createReceita(request):
             )
             nova_receita.save()
 
-            # Redirecione para a página inicial após a criação
+            # Salve a mensagem de sucesso na sessão do usuário
             messages.success(request, 'Receita criada com sucesso.')
-            return redirect('receitas:index')
+
+            # messages.add_message(request, constants.SUCCESS, "Receita criada com sucesso.")
+
+
+            # Redirecione para a página inicial após a criação
+            return redirect('receitas:createReceita')
 
         else:
-            messages.error(request, 'Erro ao fazer o upload da imagem.')
-    else:
-        # Exiba o formulário de criação de receita vazio
-        categorias = models.Categoria.objects.all()
-        context = {
-            'categorias': categorias
-        }
-        return render(request, 'receitas/cadastro.html', context)
+            messages.error(request, 'Erro ao fazer o upload da imagem')
 
-    # Caso ocorra um erro, retorne para o formulário de criação
-    return redirect('receitas:cadastro')
-
+    # Exiba o formulário de criação de receita vazio
+    categorias = models.Categoria.objects.all()
+    context = {
+        'categorias': categorias
+    }
+    return render(request, 'receitas/cadastro.html', context)
 
 # Atualização de uma receita existente
 

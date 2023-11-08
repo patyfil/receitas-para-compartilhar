@@ -5,10 +5,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <link rel="stylesheet" href="{% static './css/style.css' %}" />
-    <link rel="stylesheet" href="{% static './css/cadastro.css' %}" />
+    <!-- <link rel="stylesheet" href="{% static './css/cadastro.css' %}" /> -->
     <link rel="stylesheet" href="{% static './css/receita.css' %}" />
     <link rel="stylesheet" href="{% static './css/card-receita.css' %}" />
+
 
     <link rel="shortcut icon" href="{% static './img/pinguim.png' %}" type="image/x-icon" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -36,14 +38,14 @@
       <div class="pagination">
         <span class="step-links">
           {% if page_obj.has_previous %}
-            <a href="?page=1&q={{ request.GET.q.strip }}">&laquo; Primeiro</a>
-            <a href="?page={{ page_obj.previous_page_number }}&q={{ request.GET.q.strip }}">Anterior</a>
+            <a class="links_pg" href="?page=1&q={{ request.GET.q.strip }}">&laquo; Primeiro</a>
+            <a class="links_pg" href="?page={{ page_obj.previous_page_number }}&q={{ request.GET.q.strip }}">Anterior</a>
           {% endif %}
           <span class="current">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
 
           {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}&q={{ request.GET.q.strip }}">Próximo</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}&q={{ request.GET.q.strip }}">Último &raquo;</a>
+            <a class="links_pg" href="?page={{ page_obj.next_page_number }}&q={{ request.GET.q.strip }}">Próximo</a>
+            <a class="links_pg" href="?page={{ page_obj.paginator.num_pages }}&q={{ request.GET.q.strip }}">Último &raquo;</a>
           {% endif %}
         </span>
       </div>

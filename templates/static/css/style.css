@@ -42,7 +42,8 @@ body {
     background: #ffffff;
 }
 
-a {
+a.links_menu,
+a.links_pg {
     cursor: pointer;
     text-decoration: none;
     transition: all 200ms linear;
