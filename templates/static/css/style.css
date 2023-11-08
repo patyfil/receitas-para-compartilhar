@@ -43,7 +43,8 @@ body {
 }
 
 a.links_menu,
-a.links_pg {
+a.links_pg,
+#limpar-avaliacao {
     cursor: pointer;
     text-decoration: none;
     transition: all 200ms linear;
