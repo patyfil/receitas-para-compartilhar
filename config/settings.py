@@ -130,6 +130,11 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+LOGIN_URL = 'login'  
+# Configuração para redirecionar após o login
+LOGIN_REDIRECT_URL = 'index'
+
+
 # Messages
 
 MESSAGE_TAGS = {
