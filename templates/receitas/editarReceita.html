@@ -29,22 +29,32 @@
         <label class="label-input text-categoria" for="categoria">Categoria:</label>
         <select id="categoria" name="categoria" required>
             <option value="{{ receita.categoria.id }}">{{ receita.categoria }}</option>
+            {% for categoria in categorias %}
+            <option value="{{ categoria.id }}">{{ categoria.nome }}</option>
+            {% endfor %}
+            <!-- 
             <option value="Sobremesas">Sobremesas</option>
             <option value="Sopas">Sopas</option>
             <option value="Grelhados">Grelhados</option>
             <option value="Aperitivos">Aperitivos</option>
             <option value="Massas">Massas</option>
-            <option value="Saladas">Saladas</option>
+            <option value="Saladas">Saladas</option> -->
         </select>
 
         <div class="file-upload">
             <!-- Exibir a imagem atual -->
+
+            {% if receita.imagem == "" or receita.imagem == null %}
+            <img class="alterar_imagem" src="{% static 'img/not-found.png'%}">
+            {% else %}
             <img class="alterar_imagem" src="{{ receita.imagem.url }}" alt="{{ receita.titulo }}" width="100">
+            {% endif %}
+
 
             <button class="btn-terc" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Alterar
                 Imagem</button>
             <div class="image-upload-wrap">
-                <input name="imagem" class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*"/>
+                <input name="imagem" class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
                 <div class="drag-text">
                     <h3>Clique ou arraste o arquivo</h3>
                 </div>
@@ -71,24 +81,17 @@
         <label class="label-input" for="modo_preparo">Modo de Preparo:</label>
         <textarea id="modo_preparo" name="modo_preparo" rows="4" required>{{ receita.modo_preparo }}</textarea><br><br>
 
-        <div>
-            <button type="submit" class="btn-primary">
-                <span class="transition"></span>
-                <!-- <span class="gradient"></span> -->
+        <div class="div-btn-receita-edicao">
+            <button type="submit" class="btn-sec btn-receita-edicao">
                 <span class="label">Salvar</span>
             </button>
-        </div>
 
-        <div>
             <a href="{% url 'receitas:receita' receita.id %}">
-                <button type="button" class="btn-secondary">
-                    <span class="transition"></span>
-                    <!-- <span class="gradient"></span> -->
+                <button type="submit" class="btn-sec btn-receita-edicao">
                     <span class="label">Cancelar</span>
                 </button>
             </a>
         </div>
-
 
     </form>
 </main>
