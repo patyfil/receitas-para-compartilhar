@@ -93,23 +93,36 @@
 
                     <input type="email" name="email" placeholder="E-mail" id="emailInputCadastrar" />
 
-                    <!-- Campo de Senha -->
                     <div class="password-container">
-                        <input type="password" name="password" class="senha" placeholder="Senha" data-tipo="senha" required="required"
-                            oninput="checkPassword(this)" />
-                    
-                        <i class="fa-regular fa-eye-slash eye-icon" aria-hidden="true" onclick="togglePasswordVisibility(this)"></i>
+                        <input type="password" name="password" class="senha" placeholder="Senha" data-tipo="senha"
+                            required="required" oninput="checkPassword(this)" />
+
+                        <i class="fa-regular fa-eye-slash eye-icon" aria-hidden="true"
+                            onclick="togglePasswordVisibility(this)"></i>
+
                     </div>
-                    
+
+
                     <!-- Confirmação de Senha -->
                     <div class="password-container">
-                        <input type="password" name="confirmPassword" class="senha" placeholder="Confirmar Senha" data-tipo="senha"
-                            required="required" oninput="checkPassword(this)" />
-                    
-                        <i class="fa-regular fa-eye-slash eye-icon" aria-hidden="true" onclick="togglePasswordVisibility(this)"></i>
+                        <input type="password" name="confirmPassword" class="senha" placeholder="Confirmar Senha"
+                            data-tipo="senha" required="required" oninput="checkPassword(this)" />
+
+                        <i class="fa-regular fa-eye-slash eye-icon" aria-hidden="true"
+                            onclick="togglePasswordVisibility(this)"></i>
                     </div>
 
-
+                    <div>
+                        <p class="password_instructions_tit">A senha deve conter:</p>
+                        <p class="password_instructions">
+                            Entre 6 a 12 caracteres;<br>
+                            Não deve conter símbolos.<br>
+                            1 letra maiúscula;<br>
+                            1 letra minúscula;<br>
+                            1 número.
+                        </p>
+                    </div>
+                    
                     <button type="submit" class="btn-primary ">
                         <span class="transition"></span>
                         <span class="gradient"></span>

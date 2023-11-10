@@ -57,7 +57,7 @@ form#form-cadastro {
 }
 
 form#form-cadastro {
-    height: 350px;
+    height: 450px;
 }
 
 form h1 {
@@ -132,6 +132,21 @@ input[type="password"] {
     width: 100%;
     border: none;
     border-radius: 16px;
+}
+
+.password_instructions,
+.password_instructions_tit {
+    font-size: 12px;
+    color: #888;
+    margin: 0 0 5px 5px;
+    line-height: 1.5;
+    text-align: start;
+}
+
+.password_instructions_tit {
+    font-size: 14px;
+    margin: 0;
+    font-style: oblique;
 }
 
 
