@@ -1,8 +1,12 @@
-from django.contrib.messages import constants
+import django
 from pathlib import Path, os
+
+from django.contrib.messages import constants
 from dotenv import load_dotenv
 
 load_dotenv()
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,7 +23,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 # ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ['patyfil.pythonanywhere.com']
+ALLOWED_HOSTS = ['patyfil.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition
@@ -51,6 +55,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             BASE_DIR / 'templates',
+            BASE_DIR / 'templates/receitas',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -116,13 +121,10 @@ STATIC_URL = '/static/'
 
 
 STATICFILES_DIRS = [
-    # BASE_DIR / 'templates/static'
-    os.path.join(BASE_DIR, 'templates/static')
+    BASE_DIR / 'templates/static'
 ]
-# STATIC_ROOT = BASE_DIR / 'static'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-# MEDIA_ROOT = BASE_DIR / 'media'
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+STATIC_ROOT = BASE_DIR / 'static'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 MEDIA_URL = '/media/'
 
@@ -146,3 +148,12 @@ MESSAGE_TAGS = {
     constants.INFO: 'alert-info',
 }
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+
+# Use o backend do console para depuração local
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+print("Django version:", django.get_version())
+print("BASE_DIR:", BASE_DIR)
+print("TEMPLATES DIRS:", [str(path) for path in TEMPLATES[0]['DIRS']])

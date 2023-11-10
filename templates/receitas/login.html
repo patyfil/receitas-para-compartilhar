@@ -76,9 +76,8 @@
                         <span class="label">Entrar</span>
                     </button>
 
+                    <p class="link"><a href="{% url 'receitas:password_reset' %}">Esqueceu sua senha?</a></p>
 
-
-                    <p class="link"><a href="#">Esqueceu sua senha?</a></p>
                 </form>
             </div>
 
@@ -94,19 +93,22 @@
 
                     <input type="email" name="email" placeholder="E-mail" id="emailInputCadastrar" />
 
+                    <!-- Campo de Senha -->
                     <div class="password-container">
-                        <input type="password" name="password" class="senha" placeholder="Senha"
-                            required="required" />
-                        <i class="fa-regular fa-eye-slash eye-icon" aria-hidden="true"
-                            onclick="togglePasswordVisibility(this)"></i>
+                        <input type="password" name="password" class="senha" placeholder="Senha" data-tipo="senha" required="required"
+                            oninput="checkPassword(this)" />
+                    
+                        <i class="fa-regular fa-eye-slash eye-icon" aria-hidden="true" onclick="togglePasswordVisibility(this)"></i>
+                    </div>
+                    
+                    <!-- Confirmação de Senha -->
+                    <div class="password-container">
+                        <input type="password" name="confirmPassword" class="senha" placeholder="Confirmar Senha" data-tipo="senha"
+                            required="required" oninput="checkPassword(this)" />
+                    
+                        <i class="fa-regular fa-eye-slash eye-icon" aria-hidden="true" onclick="togglePasswordVisibility(this)"></i>
                     </div>
 
-                    <div class="password-container">
-                        <input type="password" name="confirmPassword" class="senha" placeholder="Confirmar Senha"
-                            required="required" />
-                        <i class="fa-regular fa-eye-slash eye-icon" aria-hidden="true"
-                            onclick="togglePasswordVisibility(this)"></i>
-                    </div>
 
                     <button type="submit" class="btn-primary ">
                         <span class="transition"></span>

@@ -102,7 +102,10 @@ p.link {
     color: var(--cinza-medio);
     text-decoration: none;
     font-weight: 400;
+}
 
+.link a:hover {
+    color: var(--color-sec);
 }
 
 .cadastro {
@@ -179,8 +182,8 @@ input[type="password"] {
     }
 
     form#form-cadastro {
-    height: 330px;
-}
+        height: 330px;
+    }
 
     .btn-primary {
         width: 100px;
