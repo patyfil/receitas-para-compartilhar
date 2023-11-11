@@ -56,6 +56,14 @@ a:hover {
     color: var(--color-sec);
 }
 
+.links_menu.active {
+    color: var(--color-sec);
+    font-weight: bold;
+    text-decoration: underline;
+    text-decoration-thickness: 4px;
+    text-underline-offset: 12px;
+}
+
 
 /* CABEÇALHO */
 

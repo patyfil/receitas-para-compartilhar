@@ -64,6 +64,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'receitas.context_processors.menu_items',  
             ],
         },
     },
@@ -154,6 +155,5 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
-print("Django version:", django.get_version())
-print("BASE_DIR:", BASE_DIR)
-print("TEMPLATES DIRS:", [str(path) for path in TEMPLATES[0]['DIRS']])
+# print("BASE_DIR:", BASE_DIR)
+# print("TEMPLATES DIRS:", [str(path) for path in TEMPLATES[0]['DIRS']])

@@ -31,31 +31,17 @@
 
   </div>
   <hr />
+
   <div class="menu2">
-    <ul id="menu-list"></ul>
+    <ul id="menu-list">
+      {% for item in menuItems %}
+      <li>
+        <a href="{% if item.query %}{% url 'receitas:search' %}?q={{ item.query }}{% else %}{% url 'receitas:index' %}{% endif %}"
+          class="links_menu {% if not item.query and not current_query or current_query == item.query %}active{% endif %}">
+          {{ item.text }}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
   </div>
-  <script>
-    const menuItems = [
-      { text: 'Todas as receitas', query: '' },
-      { text: 'Sobremesas', query: 'Sobremesas' },
-      { text: 'Sopas', query: 'Sopas' },
-      { text: 'Grelhados', query: 'Grelhados' },
-      { text: 'Aperitivos', query: 'Aperitivos' },
-      { text: 'Massas', query: 'Massas' },
-      { text: 'Saladas', query: 'Saladas' }
-    ]
-
-    const menuList = document.getElementById('menu-list')
-
-    for (const item of menuItems) {
-      const li = document.createElement('li');
-      const a = document.createElement('a');
-      a.href = `/search/?q=${item.query}`;
-      a.textContent = item.text;
-      a.classList.add('links_menu'); // Adiciona a classe 'links_menu' ao elemento <a>
-      li.appendChild(a);
-      menuList.appendChild(li);
-    }
-
-  </script>
 </header>

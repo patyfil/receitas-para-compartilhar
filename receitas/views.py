@@ -1,6 +1,6 @@
-import logging
-from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
+
+from receitas.context_processors import menu_items
 from . import models
 from django.db.models import Q
 from django.core.paginator import Paginator
@@ -16,23 +16,30 @@ from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, 
 from django.urls import reverse_lazy
 
 
-
 # Página inicial
 
 
 def index(request):
     receitas = models.Receita.objects.all()
-    paginator = Paginator(receitas, 8)  # Número de receitas por página
+
+    paginator = Paginator(receitas, 8)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
+
+    # Chame a função menu_items para obter a lista de itens do menu (arquivo context_processors.py)
+    menu_data = menu_items(request)
+
     context = {
         'page_obj': page_obj,
+        # Use a lista de itens do menu do contexto
+        'menuItems': menu_data['menu_items'],
+        'current_query': request.GET.get('q', ''),
     }
+
     return render(request, 'receitas/index.html', context)
 
 
 # Visualização de uma receita específica
-
 
 def receita(request, receitaId):
     receita_unica = get_object_or_404(models.Receita, id=receitaId)
@@ -109,9 +116,7 @@ def updateReceita(request, receitaId):
         receita.subtitulo = request.POST.get('subtitulo')
         receita.ingredientes = request.POST.get('ingredientes')
         receita.modo_preparo = request.POST.get('modo_preparo')
-        # receita.imagem = request.FILES.get('imagem')
 
-        # Verifique se o campo da imagem está presente no POST
         if 'imagem' in request.FILES:
             receita.imagem = request.FILES['imagem']
 
@@ -124,8 +129,6 @@ def updateReceita(request, receitaId):
             receita.save()
             return redirect('receitas:index')
         except models.Categoria.DoesNotExist:
-            # Categoria não encontrada, trate o erro aqui
-            # Você pode redirecionar o usuário de volta ao formulário com uma mensagem de erro
             pass
 
     # Exibir o formulário de atualização de receita preenchido com os dados atuais
@@ -156,27 +159,34 @@ def deleteReceita(request, receitaId):
 
 ...
 
-
 # Pesquisa de receitas
 
 
 def search(request):
-    searchValue = request.GET.get('q', '').strip()
-    if searchValue == '':
+    search_value = request.GET.get('q', '').strip()
+
+    if search_value == '':
         return redirect('receitas:index')
+
     receitas = models.Receita.objects.filter(
-        Q(titulo__icontains=searchValue) | Q(subtitulo__icontains=searchValue) | Q(
-            ingredientes__icontains=searchValue) | Q(categoria__nome__icontains=searchValue))
-    if receitas is None:
-        messages.error(request, 'Nenhuma receita encontrada')
-        return redirect('receitas:index')
+        Q(titulo__icontains=search_value) | Q(subtitulo__icontains=search_value) | Q(
+            ingredientes__icontains=search_value) | Q(categoria__nome__icontains=search_value))
+
+    # Chame a função menu_items para obter a lista de itens do menu
+    menu_data = menu_items(request)
+
     paginator = Paginator(receitas, 8)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
+
     context = {
         'page_obj': page_obj,
-        'searchValue': searchValue
+        'search_value': search_value,
+        # Use a lista de itens do menu do contexto
+        'menuItems': menu_data['menu_items'],
+        'current_query': search_value,  # Defina o valor de current_query como a busca
     }
+
     return render(request, 'receitas/index.html', context)
 
 # Página de login
@@ -209,8 +219,8 @@ def logoutUser(request):
         messages.add_message(request, constants.SUCCESS, 'Você saiu!')
     return redirect('receitas:loginUser')
 
-# Página de cadastro de usuário
 
+# Página de cadastro de usuário
 # Função para criar um usuário
 
 
@@ -263,7 +273,6 @@ def cadastroUser(request):
             return redirect('receitas:cadastroUser')
 
 
-
 # Formatação de texto
 
 
@@ -281,16 +290,13 @@ def textFormater(id, tipo):
 
 
 def reset_password(request):
-    messages.success(request, 'Teste de mensagem de sucesso.')
-    messages.error(request, 'Teste de mensagem de erro.')
     return PasswordResetView.as_view(
         template_name='receitas/reset_password_form.html',
         email_template_name='receitas/reset_password_email.html',
         success_url=reverse_lazy('receitas:password_reset_done')
     )(request)
 
-    
-    
+
 def password_reset_done(request):
     return PasswordResetDoneView.as_view(template_name='receitas/reset_password_done.html')(request)
 
