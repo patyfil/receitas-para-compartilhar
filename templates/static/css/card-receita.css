@@ -73,9 +73,6 @@
     text-overflow: ellipsis;
 }
 
-
-
-
 @media screen and (max-width: 992px) {
     .receita {
         margin: 1.5rem;
