@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from receitas.context_processors import menu_items
 from . import models
+# from django.db import models
 from django.db.models import Q
 from django.core.paginator import Paginator
 
@@ -45,16 +46,22 @@ def receita(request, receitaId):
     receita_unica = get_object_or_404(models.Receita, id=receitaId)
     ingredientes = textFormater(receitaId, tipo='ingredientes')
     modo_preparo = textFormater(receitaId, tipo='modo_preparo')
+    
+    print(f"User: {request.user}")
+    print(f"Receita Usuario: {receita_unica.usuario}")
+    receita_usuario = getattr(receita_unica, 'usuario', None)
+
     context = {
         'receita': receita_unica,
         'ingredientes': ingredientes,
         'modo_preparo': modo_preparo,
+        'user': request.user, 
+        'receita_usuario': receita_usuario,
     }
     return render(request, 'receitas/receita.html', context)
 
 
 # Criação de uma nova receita
-
 
 @login_required
 def createReceita(request):
@@ -82,13 +89,13 @@ def createReceita(request):
                 ingredientes=ingredientes,
                 modo_preparo=modo_preparo,
                 imagem=imagem,
-                categoria=categoria
+                categoria=categoria,
+                usuario=request.user  # Adicione esta linha para associar o usuário à receita
             )
             nova_receita.save()
 
             # Salve a mensagem de sucesso na sessão do usuário
-            messages.add_message(request, constants.SUCCESS,
-                                 "Receita criada com sucesso.")
+            messages.add_message(request, constants.SUCCESS, "Receita criada com sucesso.")
 
             # Redirecione para a página inicial após a criação
             return redirect('receitas:createReceita')
@@ -103,13 +110,17 @@ def createReceita(request):
     }
     return render(request, 'receitas/cadastro.html', context)
 
-# Atualização de uma receita existente
 
+# Atualização de uma receita existente
 
 @login_required
 def updateReceita(request, receitaId):
     receita = get_object_or_404(models.Receita, id=receitaId)
     categorias = models.Categoria.objects.all()
+
+    # Verifique se o usuário logado é o criador da receita
+    if request.user != receita.usuario:
+        return HttpResponseForbidden("Você não tem permissão para editar esta receita.")
 
     if request.method == 'POST':
         receita.titulo = request.POST.get('titulo')
@@ -147,6 +158,10 @@ def deleteReceita(request, receitaId):
     receita = get_object_or_404(
         models.Receita, id=receitaId)
 
+    # Verifique se o usuário logado é o criador da receita
+    if request.user != receita.usuario:
+        return HttpResponseForbidden("Você não tem permissão para excluir esta receita.")
+
     # Remova a receita do banco de dados
     receita.delete()
     messages.success(request, 'Receita excluída com sucesso.')
@@ -154,7 +169,7 @@ def deleteReceita(request, receitaId):
     # Limpe as mensagens após a exibição
     messages.get_messages(request).used = True
 
-    return redirect('receitas:loginUser')
+    return redirect('receitas:index')
 
 
 ...
@@ -275,7 +290,6 @@ def cadastroUser(request):
 
 # Formatação de texto
 
-
 def textFormater(id, tipo):
     if tipo == 'ingredientes':
         receita = models.Receita.objects.get(id=id)
@@ -283,9 +297,8 @@ def textFormater(id, tipo):
         lista = ing.split('\n')
         return lista
     elif tipo == 'modo_preparo':
-        ModoPreparo = models.Receita.objects.get(id=id)
-        modo = ModoPreparo.modo_preparo
-        lista = modo.split('\n')
+        modo_preparo = models.Receita.objects.get(id=id).modo_preparo
+        lista = modo_preparo.split('\n')
         return lista
 
 

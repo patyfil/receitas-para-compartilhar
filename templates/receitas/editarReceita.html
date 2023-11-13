@@ -32,13 +32,6 @@
             {% for categoria in categorias %}
             <option value="{{ categoria.id }}">{{ categoria.nome }}</option>
             {% endfor %}
-            <!-- 
-            <option value="Sobremesas">Sobremesas</option>
-            <option value="Sopas">Sopas</option>
-            <option value="Grelhados">Grelhados</option>
-            <option value="Aperitivos">Aperitivos</option>
-            <option value="Massas">Massas</option>
-            <option value="Saladas">Saladas</option> -->
         </select>
 
         <div class="file-upload">
@@ -81,6 +74,7 @@
         <label class="label-input" for="modo_preparo">Modo de Preparo:</label>
         <textarea id="modo_preparo" name="modo_preparo" rows="4" required>{{ receita.modo_preparo }}</textarea><br><br>
 
+        {% if request.user == receita.usuario %}
         <div class="div-btn-receita-edicao">
             <button type="submit" class="btn-sec btn-receita-edicao">
                 <span class="label">Salvar</span>
@@ -92,7 +86,7 @@
                 </button>
             </a>
         </div>
-
+        {% endif %}
     </form>
 </main>
 

@@ -69,6 +69,7 @@
             <a href="#" id="limpar-avaliacao">Limpar avaliação</a>
         </div>
 
+        {% if request.user == receita.usuario %}
         <div class="div-btn-receita-edicao">
             <a href="{% url 'receitas:updateReceita' receita.id %}">
                 <button type="submit" class="btn-sec btn-receita-edicao">
@@ -82,6 +83,9 @@
                 </button>
             </a>
         </div>
+        {% endif %}
+
+
     </section>
 </main>
 {% endblock %}
