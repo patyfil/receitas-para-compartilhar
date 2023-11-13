@@ -46,6 +46,7 @@ def receita(request, receitaId):
     receita_unica = get_object_or_404(models.Receita, id=receitaId)
     ingredientes = textFormater(receitaId, tipo='ingredientes')
     modo_preparo = textFormater(receitaId, tipo='modo_preparo')
+    menu_data = menu_items(request)
     
     print(f"User: {request.user}")
     print(f"Receita Usuario: {receita_unica.usuario}")
@@ -57,6 +58,7 @@ def receita(request, receitaId):
         'modo_preparo': modo_preparo,
         'user': request.user, 
         'receita_usuario': receita_usuario,
+        'menuItems': menu_data['menu_items'],
     }
     return render(request, 'receitas/receita.html', context)
 
@@ -73,7 +75,7 @@ def createReceita(request):
         modo_preparo = request.POST.get('modo_preparo')
         imagem = request.FILES.get('imagem')
         categoria_nome = request.POST.get('categoria')
-
+        
         # Verifique se a categoria existe
         try:
             categoria = models.Categoria.objects.get(nome=categoria_nome)
@@ -103,10 +105,14 @@ def createReceita(request):
         else:
             messages.error(request, 'Erro ao fazer o upload da imagem')
 
+    # Obtenha o contexto do menu do context_processors
+    menu_data = menu_items(request)
     # Exiba o formulário de criação de receita vazio
     categorias = models.Categoria.objects.all()
     context = {
-        'categorias': categorias
+        'categorias': categorias,
+        'menuItems': menu_data['menu_items'],
+        
     }
     return render(request, 'receitas/cadastro.html', context)
 

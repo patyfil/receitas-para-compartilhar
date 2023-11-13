@@ -105,7 +105,6 @@ header {
     justify-content: center;
     flex-wrap: wrap;
 
-    flex-direction: row;
     align-items: center;
     align-self: center;
     width: 100%;

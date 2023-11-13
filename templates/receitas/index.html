@@ -1,8 +1,20 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}Receitas para compartilhar{% endblock %}
-
 {% block content %}
+
+<head>
+  <style>
+    .alert-success {
+      color: #0a3622;
+      border: 0.375px solid #a3cfbb;
+      border-radius: 0.375rem;
+      background-color: #d1e7dd;
+      padding: 16px;
+      margin: 0 0 16px;
+    }
+  </style>
+</head>
 
 <main>
   <div class="titulo">
@@ -13,7 +25,7 @@
   {% if messages %}
   {% for message in messages %}
   <div class="alert {{ message.tags }}">
-      {{ message|safe }}
+    {{ message|safe }}
   </div>
   {% endfor %}
   {{ messages.clear }}

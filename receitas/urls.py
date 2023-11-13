@@ -7,7 +7,7 @@ app_name = 'receitas'
 urlpatterns = [
     path('', views.index, name="index"),
     path('search/', views.search, name='search'),
-
+    
     # login
     path('login/', views.loginUser, name="loginUser"),
     # Logout
