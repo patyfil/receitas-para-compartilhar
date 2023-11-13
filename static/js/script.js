@@ -57,3 +57,17 @@ emailInputEntrar.addEventListener("input", convertToLowerCase);
 
 // Adicione um ouvinte de evento para o campo de entrada de e-mail no formulário de cadastro
 emailInputCadastrar.addEventListener("input", convertToLowerCase);
+
+
+
+// Checar senha
+function checkPassword(input) {
+    const password = input.value;
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\W_]{6,12}$/;
+
+    if (!regex.test(password)) {
+        input.setCustomValidity("A senha deve conter pelo menos uma letra maiúscula e minúscula, um número e não deve conter símbolos. Deve ter entre 6 a 12 caracteres.");
+    } else {
+        input.setCustomValidity("");
+    }
+}
