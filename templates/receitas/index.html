@@ -3,11 +3,21 @@
 {% block title %}Receitas para compartilhar{% endblock %}
 
 {% block content %}
+
 <main>
   <div class="titulo">
     <h1>As melhores receitas</h1>
     <h2>Receitas para todos os gostos, desde pratos simples a criações sofisticadas</h2>
   </div>
+
+  {% if messages %}
+  {% for message in messages %}
+  <div class="alert {{ message.tags }}">
+      {{ message|safe }}
+  </div>
+  {% endfor %}
+  {{ messages.clear }}
+  {% endif %}
 
   <section class="receitas">
     {% for receita in page_obj %}

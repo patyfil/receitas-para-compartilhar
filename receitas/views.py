@@ -166,10 +166,10 @@ def deleteReceita(request, receitaId):
     receita.delete()
     messages.success(request, 'Receita excluída com sucesso.')
 
+    return redirect('receitas:index')
     # Limpe as mensagens após a exibição
     messages.get_messages(request).used = True
 
-    return redirect('receitas:index')
 
 
 ...
