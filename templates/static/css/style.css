@@ -465,4 +465,13 @@ img.alterar_imagem {
         height: 40px;
         font-size: 12px;
     }
+
+    /* tela index */
+    .titulo h2 {
+        margin: 0 15px;
+    }
+
+    section.receitas {
+        width: 90%;
+    }
 }
