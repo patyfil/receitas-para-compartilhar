@@ -34,7 +34,7 @@ Um site onde os usuários possam postar e avaliar receitas de cozinha.
 
 | Data Entregas | Tarefa | Responsavel |
 |---|---|---|
-| 23/10 | Planejamento | Todos |
+| 23/10 | Planejamento | Patrícia |
 | 30/10 | Estrutura FrontEnd | Patrícia |
 | 06/11 | Estrutura Django | Patrícia |
 | 13/11 | FrontEnd Finalizado | Patrícia |
