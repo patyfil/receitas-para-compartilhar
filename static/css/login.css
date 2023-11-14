@@ -167,8 +167,8 @@ input[type="password"] {
 
 @media screen and (max-width: 768px) {
     #login {
-        min-height: 95vh;
-        padding: 10px;
+
+        padding: 5px;
     }
 
     a.logo {
@@ -176,33 +176,53 @@ input[type="password"] {
     }
 
     .header h1 {
-        font-size: 35px;
-        line-height: 35px;
-        margin-bottom: 10px;
+        font-size: 30px;
+        line-height: 30px;
+        margin-bottom: 5px;
     }
 
     .header img {
-        width: 60px;
+        width: 50px;
+    }
+
+    div.toogle, h6 {
+        margin: 0;
     }
 
     form h1 {
-        font-size: 25px;
+        font-size: 20px;
     }
 
     form#form-login {
-        width: 280px;
+        width: 250px;
         height: auto;
-        padding: 14px 18px;
+        padding: 10px 14px;
         margin: 0 0 20px 0;
     }
 
     form#form-cadastro {
-        height: 330px;
+        height: 420px;
+        width: 250px;
+        padding: 15px;
+        margin: 0 0 20px 0;
+
     }
 
     .btn-primary {
-        width: 100px;
+        width: 80px;
         height: auto;
-        padding: 10px;
+        padding: 5px;
+    }
+
+    span.label {
+        font-size: 12px;
+    }
+
+    span.gradient {
+        margin: 0;
+    }
+
+    p.link {
+        margin: 8px 0;
     }
 }

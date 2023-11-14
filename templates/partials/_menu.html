@@ -19,14 +19,14 @@
 
     <div class="lado-direito">
       {% if user.is_authenticated %}
-      <li><a class="links_menu" href="{% url 'receitas:createReceita' %}">Cadastrar receita</a></li>
-      <li><a class="links_menu" href="{% url 'receitas:index' %}">Olá, {{ user.username }}</a></li>
+      <li class="menu-item cadastrar-receita"><a class="links_menu" href="{% url 'receitas:createReceita' %}">Cadastrar receita</a></li>
+      <li class="menu-item nome-usuario"><a class="links_menu" href="{% url 'receitas:index' %}">Olá, {{ user.username }}</a></li>
 
       {% csrf_token %}
-      <li><a class="links_menu" href="{% url 'receitas:logoutUser' %}">Sair</a></li>
+      <li class="menu-item sair-menu"><a class="links_menu" href="{% url 'receitas:logoutUser' %}">Sair</a></li>
       {% else %}
       {% csrf_token %}
-      <li><a class="links_menu" href="{% url 'receitas:loginUser' %}">Entrar</a></li>
+      <li class="menu-item entrar-menu"><a class="links_menu" href="{% url 'receitas:loginUser' %}">Entrar</a></li>
       {% endif %}
     </div>
 

@@ -411,4 +411,58 @@ img.alterar_imagem {
     img.logo-img-footer {
         margin: 15px 0;
     }
+
+    a.links_menu {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+
+@media screen and (max-width: 380px) {
+    div.lado-direito {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        gap: 10px;
+        padding: 0;
+    }
+
+    .menu-item.nome-usuario {
+        order: 1;
+        /* Olá, {{ user.username }} */
+    }
+
+    .menu-item.cadastrar-receita {
+        order: 2;
+        /* Cadastrar receita */
+    }
+
+    .menu-item.sair-menu {
+        order: 3;
+        /* Sair */
+    }
+
+    .menu-item.entrar-menu {
+        order: 4;
+        /* Entrar */
+    }
+
+    button.btn-terc {
+        font-size: 10px;
+    }
+
+    .drag-text h3 {
+        font-size: 12px;
+    }
+
+    span.gradient {
+        margin: 0;
+    }
+
+    .btn-primary {
+        width: 90px;
+        height: 40px;
+        font-size: 12px;
+    }
 }
