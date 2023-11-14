@@ -1,3 +1,4 @@
+from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 
 from receitas.context_processors import menu_items
@@ -12,9 +13,6 @@ from django.contrib.auth.decorators import login_required
 
 from django.contrib import messages
 from django.contrib.messages import constants
-
-from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
-from django.urls import reverse_lazy
 
 
 # Página inicial
@@ -48,8 +46,6 @@ def receita(request, receitaId):
     modo_preparo = textFormater(receitaId, tipo='modo_preparo')
     menu_data = menu_items(request)
     
-    print(f"User: {request.user}")
-    print(f"Receita Usuario: {receita_unica.usuario}")
     receita_usuario = getattr(receita_unica, 'usuario', None)
 
     context = {
@@ -306,26 +302,3 @@ def textFormater(id, tipo):
         modo_preparo = models.Receita.objects.get(id=id).modo_preparo
         lista = modo_preparo.split('\n')
         return lista
-
-
-def reset_password(request):
-    return PasswordResetView.as_view(
-        template_name='receitas/reset_password_form.html',
-        email_template_name='receitas/reset_password_email.html',
-        success_url=reverse_lazy('receitas:password_reset_done')
-    )(request)
-
-
-def password_reset_done(request):
-    return PasswordResetDoneView.as_view(template_name='receitas/reset_password_done.html')(request)
-
-
-def password_reset_confirm(request, uidb64, token):
-    return PasswordResetConfirmView.as_view(
-        template_name='receitas/reset_password_confirm.html',
-        success_url=reverse_lazy('receitas:password_reset_complete')
-    )(request, uidb64=uidb64, token=token)
-
-
-def password_reset_complete(request):
-    return PasswordResetCompleteView.as_view(template_name='receitas/reset_password_complete.html')(request)
