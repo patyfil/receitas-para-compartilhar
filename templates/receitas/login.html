@@ -62,10 +62,14 @@
                 <form action="{% url 'receitas:loginUser' %}" method="POST" id="form-login">
                     {% csrf_token %}
                     <h1>Entrar</h1>
-                    <input type="text" name="username" placeholder="Usuário" id="userInputEntrar" required="required" />
+                    <input type="text" name="username" placeholder="Usuário" id="userInputEntrar" required="required"
+                        autocomplete="username" />
+
                     <!-- id="emailInputEntrar" -->
                     <div class="password-container">
-                        <input type="password" name="senha" class="senha" placeholder="Senha" required="required" />
+                        <input type="password" name="password" class="senha" placeholder="Senha" required="required"
+                            autocomplete="current-password" />
+
                         <i class="fa-regular fa-eye-slash eye-icon" aria-hidden="true"
                             onclick="togglePasswordVisibility(this)"></i>
                     </div>
@@ -87,16 +91,16 @@
                 <form action="{% url 'receitas:cadastroUser' %}" method="POST" id="form-cadastro">
                     {% csrf_token %}
 
-                    <h1>Cadastro</h1>
+                    <h1>Cadastro</h1>                       
 
-                    <input type="text" name="username" placeholder="Usuário" id="username" required="required" />
+                    <input type="text" name="username" placeholder="Usuário" id="username" required="required" autocomplete="username" />
 
-                    <input type="email" name="email" placeholder="E-mail" id="emailInputCadastrar" />
+                    <input type="email" name="email" placeholder="E-mail" id="emailInputCadastrar" autocomplete="email"/>
 
                     <div class="password-container">
-                        <input type="password" name="password" class="senha" placeholder="Senha" data-tipo="senha"
-                            required="required" oninput="checkPassword(this)" />
-
+                        <input type="password" name="password" class="senha" placeholder="Senha" required="required" autocomplete="new-password" 
+                            oninput="checkPassword(this)"/>
+              
                         <i class="fa-regular fa-eye-slash eye-icon" aria-hidden="true"
                             onclick="togglePasswordVisibility(this)"></i>
 
@@ -106,7 +110,7 @@
                     <!-- Confirmação de Senha -->
                     <div class="password-container">
                         <input type="password" name="confirmPassword" class="senha" placeholder="Confirmar Senha"
-                            data-tipo="senha" required="required" oninput="checkPassword(this)" />
+                            data-tipo="senha" required="required" autocomplete="new-password" oninput="checkPassword(this)" />
 
                         <i class="fa-regular fa-eye-slash eye-icon" aria-hidden="true"
                             onclick="togglePasswordVisibility(this)"></i>
@@ -138,7 +142,7 @@
     <script src="https://kit.fontawesome.com/7ae77fe78b.js" crossorigin="anonymous"></script>
 
     <!-- ##### Javascript Files ##### -->
-    <script src="{% static 'js/script.js' %}"></script>
+    <script defer src="{% static 'js/script.js' %}"></script>
 
     <!-- jQuery-3.6.0 js / Preloader -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
