@@ -75,3 +75,19 @@ function checkPassword(input) {
         input.setCustomValidity("");
     }
 }
+
+
+
+// Password eyes - Digitação de senha (icone)
+function togglePasswordVisibility(icon) {
+    var passwordInput = icon.previousElementSibling;
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+    } else {
+        passwordInput.type = "password";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    }
+}
