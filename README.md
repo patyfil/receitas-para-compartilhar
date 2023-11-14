@@ -36,12 +36,12 @@ Um site onde os usuários possam postar e avaliar receitas de cozinha.
 |---|---|---|
 | 23/10 | Planejamento | Todos |
 | 30/10 | Estrutura FrontEnd | Patrícia |
-| 06/11 | Estrutura Django | Lucas |
+| 06/11 | Estrutura Django | Patrícia |
 | 13/11 | FrontEnd Finalizado | Patrícia |
-| 20/11 | Django Finalizado | Lucas |
-| 22/11 | Deploy e Entrega Final | Todos |
-| 23/11 | 1º Apresentação | Todos |
-| 27/11 | 2º Apresentação | Todos |
+| 20/11 | Django Finalizado | Patrícia |
+| 22/11 | Deploy e Entrega Final | Patrícia |
+| 23/11 | 1º Apresentação | Patrícia |
+| 27/11 | 2º Apresentação | Patrícia |
 
 ## 🚀 Tecnologias  
 
