@@ -42,6 +42,13 @@ body {
     background: #ffffff;
 }
 
+hr {
+    margin: 0 !important;
+    opacity: .25;
+    border: var(--cinza-claro) solid 1px;
+}
+
+
 a.links_menu,
 a.links_pg,
 #limpar-avaliacao {
