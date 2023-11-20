@@ -53,7 +53,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 ## 🔖 Layout
 
-Você pode visualizar o [layout do projeto no Figma](https://www.figma.com/file/DlNDiYNXRKDKJKMz7Mhmqn/Receitas-para-compartilhar?type=design&node-id=70048-598&mode=design&t=iHAVN3y8nSGvs9XS-0)  
+Você pode visualizar o [layout do projeto no Figma](https://www.figma.com/file/j7YnIGSS8IqNoNQjvlnyM9/Receitas-para-Compartilhar---Django?type=design&node-id=0%3A1&mode=design&t=ramGwqd9WnQIDbeA-1)  
 
 <p align="center">
     <img src="templates/static/img/preview/pg-login.jpg" width= "70%">  
