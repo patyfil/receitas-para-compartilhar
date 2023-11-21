@@ -6,8 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static './css/style.css' %}">
-    <link rel="stylesheet" href="{% static './css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" />
 
 
@@ -91,16 +91,22 @@
                 <form action="{% url 'receitas:cadastroUser' %}" method="POST" id="form-cadastro">
                     {% csrf_token %}
 
-                    <h1>Cadastro</h1>                       
+                    <h1>Cadastro</h1>
 
-                    <input type="text" name="username" placeholder="Usuário" id="username" required="required" autocomplete="username" />
+                    <input type="text" name="username" placeholder="Usuário" id="username" required="required"
+                        autocomplete="username" />
 
-                    <input type="email" name="email" placeholder="E-mail" id="emailInputCadastrar" autocomplete="email"/>
+                    <input type="email" 
+                        name="email" 
+                        placeholder="E-mail" 
+                        id="emailInputCadastrar"
+                        autocomplete="email" 
+                    />
 
                     <div class="password-container">
-                        <input type="password" name="password" class="senha" placeholder="Senha" required="required" autocomplete="new-password" 
-                            oninput="checkPassword(this)"/>
-              
+                        <input type="password" name="password" class="senha" placeholder="Senha" required="required"
+                            autocomplete="new-password" oninput="checkPassword(this)" />
+
                         <i class="fa-regular fa-eye-slash eye-icon" aria-hidden="true"
                             onclick="togglePasswordVisibility(this)"></i>
 
@@ -109,24 +115,28 @@
 
                     <!-- Confirmação de Senha -->
                     <div class="password-container">
-                        <input type="password" name="confirmPassword" class="senha" placeholder="Confirmar Senha"
-                            data-tipo="senha" required="required" autocomplete="new-password" oninput="checkPassword(this)" />
+                        <input type="password" name="confirmPassword" class="senha" 
+                            placeholder="Confirmar Senha" id="confirmarSenha"
+                            data-tipo="senha" required="required" autocomplete="new-password"
+                            oninput="checkPassword(this)" />
 
-                        <i class="fa-regular fa-eye-slash eye-icon" aria-hidden="true"
-                            onclick="togglePasswordVisibility(this)"></i>
+                        <i class="fa-regular fa-eye-slash eye-icon" 
+                            aria-hidden="true"
+                            onclick="togglePasswordVisibility(this)">
+                        </i>
                     </div>
 
                     <div>
                         <p class="password_instructions_tit">A senha deve conter:</p>
                         <p class="password_instructions">
                             Entre 6 a 12 caracteres;<br>
-                            Não deve conter símbolos.<br>
+                            Não deve conter símbolos;<br>
                             1 letra maiúscula;<br>
                             1 letra minúscula;<br>
                             1 número.
                         </p>
                     </div>
-                    
+
                     <button type="submit" class="btn-primary ">
                         <span class="transition"></span>
                         <span class="gradient"></span>

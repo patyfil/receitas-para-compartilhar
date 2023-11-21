@@ -45,14 +45,14 @@ def receita(request, receitaId):
     ingredientes = textFormater(receitaId, tipo='ingredientes')
     modo_preparo = textFormater(receitaId, tipo='modo_preparo')
     menu_data = menu_items(request)
-    
+
     receita_usuario = getattr(receita_unica, 'usuario', None)
 
     context = {
         'receita': receita_unica,
         'ingredientes': ingredientes,
         'modo_preparo': modo_preparo,
-        'user': request.user, 
+        'user': request.user,
         'receita_usuario': receita_usuario,
         'menuItems': menu_data['menu_items'],
     }
@@ -71,7 +71,7 @@ def createReceita(request):
         modo_preparo = request.POST.get('modo_preparo')
         imagem = request.FILES.get('imagem')
         categoria_nome = request.POST.get('categoria')
-        
+
         # Verifique se a categoria existe
         try:
             categoria = models.Categoria.objects.get(nome=categoria_nome)
@@ -93,7 +93,8 @@ def createReceita(request):
             nova_receita.save()
 
             # Salve a mensagem de sucesso na sessão do usuário
-            messages.add_message(request, constants.SUCCESS, "Receita criada com sucesso.")
+            messages.add_message(request, constants.SUCCESS,
+                                 "Receita criada com sucesso.")
 
             # Redirecione para a página inicial após a criação
             return redirect('receitas:createReceita')
@@ -108,7 +109,7 @@ def createReceita(request):
     context = {
         'categorias': categorias,
         'menuItems': menu_data['menu_items'],
-        
+
     }
     return render(request, 'receitas/cadastro.html', context)
 
@@ -173,7 +174,6 @@ def deleteReceita(request, receitaId):
     messages.get_messages(request).used = True
 
 
-
 ...
 
 # Pesquisa de receitas
@@ -212,7 +212,7 @@ def search(request):
 def loginUser(request):
     if request.method == 'POST':
         username = request.POST.get('username')
-        password = request.POST.get('senha')
+        password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         print(user)
         if user is not None:
