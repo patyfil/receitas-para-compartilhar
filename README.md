@@ -57,9 +57,11 @@ Você pode visualizar o [layout do projeto no Figma](https://www.figma.com/file/
 
 <p align="center">
     <img src="templates/static/img/preview/pg-login.jpg" width= "70%">  
+    <img src="templates/static/img/preview/pg-cadastro.jpg" width= "70%">  
     <img src="templates/static/img/preview/pg-inicial.jpg" width= "70%">  
     <img src="templates/static/img/preview/pg-receita.jpg" width= "70%">  
-    <img src="templates/static/img/preview/pg-cadastro.jpg" width= "70%">  
+    <img src="templates/static/img/preview/pg-receita-editar.jpg" width= "70%">  
+    <img src="templates/static/img/preview/pg-cadastrar-receita.jpg" width= "70%">  
 </p>
 
 <p align="center">
