@@ -66,11 +66,12 @@ Você pode visualizar o [layout do projeto no Figma](https://www.figma.com/file/
 
 <p align="center">
     <img src="templates/static/img/preview/mobile-pg-login.jpg" width= "20%">  
-    <img src="templates/static/img/preview/mobile-pg-inicial.jpg" width= "20%">  
-    <img src="templates/static/img/preview/mobile-pg-inicial2.jpg" width= "20%">  
-    <img src="templates/static/img/preview/mobile-pg-receita.jpg" width= "20%">  
-    <img src="templates/static/img/preview/mobile-pg-receita2.jpg" width= "20%">  
-    <img src="templates/static/img/preview/mobile-pg-cadastro.jpg" width= "20%">  
+    <img src="templates/static/img/preview/mobile-cadastroUser.jpg" width= "20%">  
+    <img src="templates/static/img/preview/mobile-pg-index.jpg" width= "20%">  
+    <img src="templates/static/img/preview/mobile-pg-index2.jpg" width= "20%">  
+    <img src="templates/static/img/preview/mobile-receita.jpg" width= "20%">  
+    <img src="templates/static/img/preview/mobile-pg-receita-editar.jpg" width= "20%">  
+    <img src="templates/static/img/preview/mobile-cadastrar-receita.jpg" width= "20%">  
 </p>
 
 
