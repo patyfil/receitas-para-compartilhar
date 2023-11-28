@@ -1,11 +1,9 @@
 import django
-from pathlib import Path, os
-
 from django.contrib.messages import constants
+from pathlib import Path, os
 from dotenv import load_dotenv
 
 load_dotenv()
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -18,6 +16,7 @@ AUTHENTICATION_BACKENDS = [
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+# AVISO DE SEGURANÇA: mantenha em segredo a chave secreta usada na produção!
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -131,7 +130,6 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = BASE_DIR / 'static'
 MEDIA_ROOT = BASE_DIR / 'media'
-
 MEDIA_URL = '/media/'
 
 # Default primary key field type
